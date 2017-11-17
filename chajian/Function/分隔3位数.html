@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分隔3位数</title>
+</head>
+<body>
+
+</body>
+	<h2>formatNumber(num, precision, separator) 分隔3位数</h2>
+	<script type="text/javascript">
+
+		//分隔3位数
+		function formatNumber(num, precision, SplitNum, separator) {
+			//数字  保留几位小数点(精度)   分割位数  分隔符
+			var parts;
+
+			// 判断是否为数字
+			if (!isNaN(parseFloat(num)) && isFinite(num)) {
+				// 把类似 .5, 5. 之类的数据转化成0.5, 5, 为数据精度处理做准
+				// 至于为什么不在判断中直接写 if (!isNaN(num = parseFloat(num)) && isFinite(num))
+				// 是因为parseFloat有一个奇怪的精度问题, 比如 parseFloat(12312312.1234567119)的值变成了 12312312.123456713
+				num = Number(num);
+				// 处理小数点位数
+				console.log(num);
+				num = (typeof precision !== 'undefined' ? num.toFixed(precision) : num).toString();
+				console.log(num);
+				// 分离数字的小数部分和整数部分
+				parts = num.split('.');
+				console.log(parts);
+				// 整数部分加[separator]分隔, 借用一个著名的正则表达式
+				var str = '(\\d)(?=(\\d{'+SplitNum+'})+(?!\\d))';
+				var reg= new RegExp(str,'g');
+				parts[0] = parts[0].toString().replace(reg, '$1' + (separator || ','));
+
+				return parts.join('.');
+			}
+			return NaN;
+		}
+
+		//isNaN() 函数用于检查其参数是否是非数字值。
+		//parseFloat() 函数可解析一个字符串，并返回一个浮点数。
+		//isFinite() 函数用于检查其参数是否是无穷大。  true/false
+		//Number() 函数把对象的值转换为数字。
+		//toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。
+		//toString() 方法可把一个逻辑值转换为字符串，并返回结果。
+		//split() 方法用于把一个字符串分割成字符串数组。
+		//replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+		//join() 方法用于把数组中的所有元素放入一个字符串。
+
+		//console.log(formatNumber(100));//"100"
+		//console.log(formatNumber(10000));//"10,000"
+		//console.log(formatNumber(10000, 2));//"10,000.00"
+		//console.log(formatNumber(10000.123456, 2));//"10,000.12"
+		console.log(formatNumber(10000.8888, 2,2, ' '));//"10 000.12"
+		//console.log(formatNumber(.123456, 2, ' '));//"0.12"
+		//console.log(formatNumber(56., 2, ' '));//"56.00"
+		//console.log(formatNumber(56., 0, ' '));//"56"
+		//console.log(formatNumber('56.'));//"56"
+		//console.log(formatNumber('56.a'));//NaN
+		//console.log(formatNumber('.5'));//0.5
+		//.log(formatNumber('5.33'));//5.33
+	</script>
+</html>

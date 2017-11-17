@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>ImgAuto</title>
+	<style type="text/css">
+		.imglist{
+			float:left;
+			margin:100px;
+			list-style:none;
+		}
+		.imglist li{
+			float:left;
+			width:240px;
+			height:180px;
+			margin:0 10px 10px 0;
+			text-align:center;
+			border: 1px solid #ccc;
+			background: #f5f5f5 url(img/loading.gif) no-repeat center center;
+			background-size: 20px;
+		}
+		.imglist li img{
+			display:none;
+		}
+	</style>
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/imgauto.js"></script>
+</head>
+<body>
+	<ul class="imglist">
+		<li><img data-imgauto="ed-imgauto" src="img/img66.jpg" onerror="this.style.display='none';" /></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img2.gif" onerror="this.style.display='none';" /></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img3.jpg"/ onerror="this.style.display='none';" ></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img4.gif" onerror="this.style.display='none';" /></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img5.jpg" onerror="this.style.display='none';" /></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img6.jpg" onerror="this.style.display='none';" /></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img7.gif" onerror="this.style.display='none';" /></li>
+		<li><img class="ed-imgauto" data-imgauto="ed-imgauto"  src="img/img8.gif" onerror="this.style.display='none';" /></li>
+	</ul>
+	<script>
+		$(function() {
+			// setTimeout(function(){
+			// 	new ImgAuto({
+			// 		el:'.imglist'
+			// 	});
+			$('body').imgauto();
+		});
+	</script>
+</body>
+</html>

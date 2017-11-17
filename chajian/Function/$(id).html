@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>$(id)</title>
+	<script src="js/client.js"></script>
+	<script src="js/EventUtil.js"></script>
+</head>
+<body>
+	<input type="button" id="myBtn" value="EventUtil.addHandler" />
+	<script>
+		function $(id) {
+			return !id ? null : document.getElementById(id);
+		}
+
+		EventUtil.addHandler($('myBtn'), "click", function(e){
+			var event = EventUtil.getEvent(e);
+			var target = EventUtil.getTarget(event);
+			EventUtil.preventDefault(event);
+			EventUtil.stopPropagation(event);
+
+			console.log("添加事件");
+			console.log(event);
+			console.log(event.clientX);
+			console.log(target.tagName);
+		});
+	</script>
+
+	<div id="myDiv" style="background-color:#36C;height:100px;width:100px">鼠标离开DIV</div>
+	<script>
+		EventUtil.addHandler($('myDiv'), "mouseout", function(e){
+			var event = EventUtil.getEvent(e);
+			var target = EventUtil.getTarget(event);
+			var relatedTarget = EventUtil.getRelatedTarget(event);
+			alert("鼠标离开 " + target.tagName + " 到 " + relatedTarget.tagName);
+		});
+	</script>
+
+	<div id="xia" style="background-color:red;height:100px;width:100px">Click xia</div>
+	<script>
+		EventUtil.addHandler($('xia'), "mousedown", function(e){
+			var event = EventUtil.getEvent(e);
+			alert(EventUtil.getButton(event));
+		});
+	</script>
+
+	<p>Try scrolling your mouse wheel.</p>
+	<script>
+		(function(){
+			function handleMouseWheel(e){
+				var event = EventUtil.getEvent(e);
+				var delta = EventUtil.getWheelDelta(event);
+				console.log(delta);
+			}
+
+			EventUtil.addHandler(document, "mousewheel", handleMouseWheel);
+			EventUtil.addHandler(document, "DOMMouseScroll", handleMouseWheel);
+		})();
+	</script>
+
+	<input type="text" id="myText" />
+	<script>
+		EventUtil.addHandler($('myText'), "keypress", function(e){
+			var event = EventUtil.getEvent(e);
+			console.log(EventUtil.getCharCode(event));
+		});
+	</script>
+
+	<br><br><br><br><br><br><br><br><br>
+	<p>try ctrl+v</p>
+	<input type="text" id="txtPhone" name="phone" value="">
+	<script>
+		(function(){
+			EventUtil.addHandler($('txtPhone'), "paste", function(event){
+				event = EventUtil.getEvent(event);
+				var text = EventUtil.getClipboardText(event);
+				console.log(text);
+			});
+		})();
+	</script>
+</body>
+</html>

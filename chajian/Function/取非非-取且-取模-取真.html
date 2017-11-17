@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>取反-取且-取模-取真</title>
+</head>
+
+<body>
+    <h2>取反-取且-取模-取真</h2>
+    <input id="smt" type="submit">
+    <div id="nametype"></div>
+    <div id="foo"></div>
+    <script>
+
+    //取反
+    var typename = true;
+    var smt = document.getElementById('smt');
+    var text = document.querySelector('#nametype');
+    smt.addEventListener('click', function() {
+        typename = !typename;
+        var textNode = document.createTextNode(typename);
+        //text.appendChild(textNode);
+        text.innerHTML = textNode.nodeValue + '<br/>';
+    });
+
+
+    //取非非   两个取反为了返回布尔型
+    var o = {
+        flag: true //null undefined 0 ''
+    };
+    var test = !!o.flag; //等效于var test=o.flag||false;
+    console.log('取非非 ' + test);
+
+    var b = null;
+    var c = true;
+    console.log('!! ' + !!b); //false
+    console.log('!! ' + !!c); //true
+    console.log(!!b && c); //false
+    console.log(!!c && b); //null
+
+    /*由于对null与undefined用!操作符时都会产生true的结果，
+    所以用两个感叹号的作用就在于，
+    如果明确设置了o中flag的值（非 null/undefined/0""/等值），自然test就会取跟o.flag一样的值；
+    如果没有设置，test就会默认为false，而不是 null或undefined。*/
+
+
+    //取且
+    function t(a) {
+        var r = a && 1;
+        return r;
+    }
+    // console.log('取且'+t());
+    console.log('取且' + t('aaa')); //取且1
+
+
+    //取真
+    var a = "";
+
+    function f(a) {
+        // 这种写法会对a进行一次布尔运算，只有为true时，才会返回a。可是，除了undefined以外，0、空字符、null等的布尔值也是false。也就是说，在下面的函数中，不能让a等于0或空字符串，否则在明明有参数的情况下，也会返回默认值。
+        var r = a || 1;
+        //(r !== undefined && a != null)?(a = a):(a = 1);
+        return r;
+    }
+    // console.log('取反'+f());
+    console.log('取真' + f()); //取真1
+
+
+    //取模
+    console.log('取模' + 14 % 5); //取模4
+
+
+    //等于比较
+    var
+        a = 30,
+        b = 30,
+        c = a === b;
+    console.log(c); //true
+
+    </script>
+</body>
+
+</html>

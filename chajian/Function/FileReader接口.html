@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FileReader接口</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+	<h2>FileReader接口</h2>
+	<ul>
+		<li>readAsBinaryString (Blob|File)：返回二进制字符串，该字符串每个字节包含一个0到255之间的整数。</li>
+		<li>readAsText (Blob|File, opt_encoding) ：返回文本字符串。默认情况下，文本编码格式是'UTF-8'，可以通过可选的格式参数，指定其他编码格式的文本。</li>
+		<li>readAsDataURL (Blob|File)：返回一个基于Base64编码的data-uri对象。</li>
+		<li>readAsArrayBuffer (Blob|File) ：返回一个ArrayBuffer对象。</li>
+	</ul>
+	<p>
+		<label>请选择一个文件：</label>
+		<input type="file" id="file" />
+		<input type="button" value="读取图像" onclick="readAsDataURLS()" />
+		<input type="button" value="读取二进制数据" onclick="readAsBinaryStringS()" />
+		<input type="button" value="读取文本文件" onclick="readAsTextS()" />
+	</p>
+	<div id="result" name="result"></div>
+	<script type="text/javascript">
+		var result=document.getElementById("result");
+		var file=document.getElementById("file");
+
+		if (fetch in window){
+			// 支持
+			console.log('支持');
+		} else {
+			// 不支持
+			console.log('不支持');
+		}
+
+		//判断浏览器是否支持FileReader接口
+		if(typeof FileReader == 'undefined'){
+			result.innerHTML="<h1>你的浏览器不支持FileReader接口！</h1>";
+			//使选择控件不可操作
+			file.setAttribute("disabled","disabled");
+		}
+
+		//预览图片
+		function readAsDataURLS(){
+			//检验是否为图像文件
+			var file = document.getElementById("file").files[0];
+			//var file = $('#file')[0].files[0];
+			if(file===undefined){
+				alert("看清楚，你还没放图片呢！");
+			}else{
+				if(!/image\/\w+/.test(file.type)){
+					alert("看清楚，这个不是图片！");
+				}else{
+					var reader = new FileReader();
+					//readAsDataURL(Blob|File)：返回一个基于Base64编码的data-uri对象。
+					reader.readAsDataURL(file);
+					reader.onload=function(e){
+						//显示文件
+						console.log(this.result);
+						result.innerHTML='<img src="' + this.result +'" alt="" />';
+					}
+				}
+			}
+		}
+
+		//读取二进制数据
+		function readAsBinaryStringS(){
+			var file = document.getElementById("file").files[0];
+			if(file===undefined){
+				alert("看清楚，你还没放图片呢！");
+			}else{
+				var reader = new FileReader();
+				//readAsBinaryString(Blob|File)：返回二进制字符串，该字符串每个字节包含一个0到255之间的整数
+				reader.readAsBinaryString(file);
+				reader.onload=function(f){
+					//显示文件
+					result.innerHTML=this.result;
+				}
+			}
+		}
+
+		//读取文本文件
+		function readAsTextS(){
+			var file = document.getElementById("file").files[0];
+			if(file===undefined){
+				alert("看清楚，你还没放图片呢！");
+			}else{
+				var reader = new FileReader();
+				//readAsText(Blob|File, opt_encoding) ：返回文本字符串。默认情况下，文本编码格式是'UTF-8'，可以通过可选的格式参数，指定其他编码格式的文本。
+				reader.readAsText(file);
+				reader.onload=function(f){
+					//显示文件
+					result.innerHTML=this.result;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

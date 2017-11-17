@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript级联函数-链式调用</title>
+</head>
+<body>
+	<h2>JavaScript级联函数-链式调用</h2>
+	<script>
+		//A 脸 嘴 腿
+		function ClassA(){
+			this.face ='';
+			this.mouth ='';
+			this.leg ='';
+		}
+
+		ClassA.prototype ={  //从写原型链
+			setFace:function(){
+				this.face ='胖脸';
+				return this;
+			},
+			setMouth:function(){
+				this.mouth ='红色肉嘟嘟';
+				return this;
+			},
+			setLeg:function(){
+				this.leg ='小粗腿';
+				//return this;  //最后一个可以不返回
+			}
+		};
+
+		var person = new ClassA();
+		person.setFace().setMouth().setLeg();  //如果不返回this, 链式调用的时候, 前者返回的是 undefined
+
+		console.log(person);
+	</script>
+</body>
+</html>

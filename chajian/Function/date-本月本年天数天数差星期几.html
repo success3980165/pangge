@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>date</title>
+	<script src="js/date.js"></script>
+</head>
+<body>
+	<h2>date</h2>
+	<p>本月天数 getDaysInMonths(2001,2)</p>
+	<p>本年天数 getDaysInYears(2017)</p>
+	<p>天数差 getDays('2014-04-14','2015-05-05')</p>
+	<p>某日星期几 getDaysInWeekDay('2014-05-17')</p>
+	<script>
+		var today = new Date();
+
+		//获取时间戳
+		function getUnix(days){
+			var day = new Date(days.replace(/-/g, "/")).getTime();
+			return day;
+		}
+		// alert(getUnix('2014-05-17'));
+
+		//某月天数
+		function getDaysInMonths(year,month){
+			var month = parseInt(month,10); //parseInt(number,type)这个函数后面如果不跟第2个参数来表示进制的话，默认是10进制。 可以不取整
+			var temp = new Date(year,month,0);
+			return temp.getDate();
+		}
+		//alert(getDaysInMonths(today.getFullYear(),today.getMonth()+1));
+		alert(getDaysInMonths(2016,07));
+
+
+		//某年天数
+		function getDaysInYears(year){
+			var beforeYear = new Date(year+'-01-01'); //可以不匹配
+			var afterYear = new Date((year-1)+'-01-01');
+			var days = afterYear.getTime() - beforeYear.getTime();
+			var time = parseInt(days / (1000 * 60 * 60 * 24));
+			return -time;
+		}
+		//alert(getDaysInYears(2017));
+
+
+		//月数差
+		function getMonths(beforeYear,afterYear){
+			var beforeYear = new Date(beforeYear.replace(/-/g, "/")); //可以不匹配
+			var afterYear = new Date(afterYear.replace(/-/g, "/"));
+			var months = afterYear.getTime() - beforeYear.getTime();
+			var time = Math.round(months / (1000 * 60 * 60 * 24 * 30.42));
+			return time;
+		}
+		alert(getMonths('2014-01-14','2015-05-05'));
+
+		//天数差
+		function getDays(beforeYear,afterYear){
+			var beforeYear = new Date(beforeYear.replace(/-/g, "/")); //可以不匹配
+			var afterYear = new Date(afterYear.replace(/-/g, "/"));
+			var days = afterYear.getTime() - beforeYear.getTime();
+			var time = parseInt(days / (1000 * 60 * 60 * 24));
+			return time;
+		}
+		//alert(getDays('2014-04-14','2015-05-05'));
+
+
+		//某日星期几
+		function getDaysInWeekDay(year){
+			var weeks=['星期六','星期天','星期一','星期二','星期三','星期四','星期五'];
+			var week = new Date(year.replace(/-/g, "/")); //可以不匹配
+			var time = week.getDay();
+			return weeks[time];
+		}
+		//alert(getDaysInWeekDay('2014-05-17'));
+
+		var d_1 = new Date().format('yyyy-MM-dd');
+		console.log(d_1);
+
+		var d_2 = new Date().format('yyyy年MM月dd日');
+		console.log(d_2);
+
+		var zone = getRecentMonth(7);
+		console.log(zone.start+'---'+zone.end);
+	</script>
+</body>
+</html>

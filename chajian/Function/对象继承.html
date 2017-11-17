@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象继承</title>
+</head>
+<body>
+	<script>
+		//父类
+		function Cat (name,age) {
+			this.name = name;
+			this.age = age;
+		}
+		Cat.prototype.mimi = function(miao) {
+			console.log(this.name,this.age,miao);
+		}
+
+		//子类
+		function Tiger (color,weight) {
+			this.color = color;
+			this.weight = weight;
+			Cat.call(this); // 调用父类构造函数  不要用下面方法传入参数而改变数据
+			// Cat.apply(this,arguments); // 调用父类构造函数
+		}
+		Tiger.prototype = Object.create(Cat.prototype);
+		Tiger.prototype.constructor = Tiger;
+		Tiger.prototype.scream = function (hou) {
+			console.log(this.color,this.weight,hou);
+		}
+
+		// 使用猫
+		var myCat = new Cat('漂漂',3);
+		myCat.mimi('^O^ 喵！！！');  //漂漂 3 ^O^ 喵！！！
+
+		//使用虎
+		var myTiger = new Tiger('yellow','100KG');
+		myTiger.scream('┗|｀O′|┛ 嗷~~');  //yellow 100KG ┗|｀O′|┛ 嗷~~
+		myTiger.mimi('┗|｀O′|┛ 嗷~~');  //undefined undefined "┗|｀O′|┛ 嗷~~"
+
+		console.log(myCat instanceof Cat);  //true
+		console.error(myCat instanceof Tiger);   //false
+		console.log(myTiger instanceof Cat);  //true
+		console.log(myTiger instanceof Tiger);  //true
+	</script>
+</body>
+</html>

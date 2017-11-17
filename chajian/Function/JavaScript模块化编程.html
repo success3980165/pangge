@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript模块化编程</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+	<p>finalCarousel对象输出到全局，对外暴露init和destroy接口，内部方法go、handleEvents、initialize、dieCarouselDie都是外部无法调用的。</p>
+	<script>
+		// 使用"立即执行函数"（Immediately-Invoked Function Expression，IIFE）.
+		// 将相关的属性和方法封装在一个函数作用域里面，可以达到不暴露私有成员的目的。
+		var module1 = (function() {　
+			var _count = 0;　
+			var m1 = function() {
+				_count++;
+				console.log('m1 '+ _count);
+			};　
+			var m2 = function() {
+				_count--;
+				console.log('m2 '+ _count);
+			};　
+			return {　　
+				m1: m1,
+				m2: m2
+			};
+		})();
+		console.info(module1._count); //undefined
+		module1.m1();  //1
+		module1.m2();  //0
+
+		//输入全局变量
+		(function($, window, document) {
+			function go(num) {
+				console.log('go');
+			}
+
+			function handleEvents() {
+				console.log('handleEvents');
+			}
+
+			function initialize() {
+				console.log('initialize');
+			}
+
+			function dieCarouselDie() {
+				console.log('dieCarouselDie');
+			}
+
+			//attach to the global scope
+			window.finalCarousel = {
+				init: initialize,
+				destroy: dieCarouselDie()
+			}
+
+		})(jQuery, window, document);
+		finalCarousel.init();
+		finalCarousel.destroy;
+	</script>
+</body>
+</html>

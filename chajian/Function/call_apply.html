@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*
+			call方法的完整使用格式如下。
+			func.call(thisValue, arg1, arg2, ...)
+			它的第一个参数就是this所要指向的那个对象，后面的参数则是函数调用时所需的参数。
+			如果this所要指向的那个对象，设定为null或undefined，则等同于指向全局对象。
+		*/
+		var n = 123;
+		var o = { n : 456 };
+
+		function a() {
+			console.log(this.n);
+		}
+		function add(a,b) {
+			return console.log(a+b);
+		}
+
+		a.call() // 123
+		a.call(null) // 123
+		a.call(undefined) // 123
+		a.call(window) // 123
+		a.call(o) // 456
+		a.apply(); // 123
+		a.apply(window); // 123
+		a.apply(o); // 456
+		add.call(this,1,2) // 3
+
+		/*
+			apply方法的作用与call方法类似，也是改变this指向，然后再调用该函数。它的使用格式如下。
+			func.apply(thisValue, [arg1, arg2, ...])
+			apply方法的第一个参数也是this所要指向的那个对象，如果设为null或undefined，则等同于指定全局对象。第二个参数则是一个数组，该数组的所有成员依次作为参数，传入原函数。原函数的参数，在call方法中必须一个个添加，但是在apply方法中，必须以数组形式添加。
+		*/
+		var xia={
+			name:'xiayuting',
+			age:30
+		}
+		var cao={
+			name:'caozuoyu',
+			age:29
+		}
+		function t(num){
+			console.log(this.name+'的真实年龄'+this.age);
+			console.log(this.name+'对别人都说我是'+(this.age+num));
+		}
+
+		xia.m=t;
+		xia.m(-2);
+
+		t.call(cao,-10);
+		//t.apply(cao,[10]);   //一样结果
+	</script>
+</body>
+</html>

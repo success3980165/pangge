@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<p>
+		Name: <span id="jname"></span><br />
+		Age: <span id="jage"></span><br />
+		Address: <span id="jstreet"></span><br />
+		Phone: <span id="jphone"></span><br />
+	</p>
+	<p>
+		First Name: <span id="fname"></span>
+	</p>
+
+	<p>
+		First Name: <span id="fnamee"></span><br />
+		Last Name: <span id="lnamee"></span><br />
+	</p>
+	<script type="text/javascript">
+		var JSONObject= {
+			"name":"Bill Gates",
+			"street":"Fifth Avenue New York 666",
+			"age":56,
+			"phone":"555 1234567"
+		};
+		document.getElementById("jname").innerHTML=JSONObject.name
+		document.getElementById("jage").innerHTML=JSONObject.age
+		document.getElementById("jstreet").innerHTML=JSONObject.street
+		document.getElementById("jphone").innerHTML=JSONObject.phone
+	</script>
+
+
+	<script type="text/javascript">
+	var employees = [
+		{ "firstName":"Bill" , "lastName":"Gates" },
+		{ "firstName":"George" , "lastName":"Bush" },
+		{ "firstName":"Thomas" , "lastName": "Carter" }
+	];
+	employees[1].firstName="Jobs";
+	document.getElementById("fname").innerHTML=employees[1].firstName;
+	</script>
+
+
+
+	<script type="text/javascript">
+		var txt = '{"employees":[' +
+		'{"firstName":"Bill","lastName":"Gates" },' +
+		'{"firstName":"George","lastName":"Bush" },' +
+		'{"firstName":"Thomas","lastName":"Carter" }]}';
+		console.log(txt);
+
+		//eval() 函数可将字符串转换为代码执行，并返回一个或多个值
+		var obj = eval ("(" + txt + ")");
+
+		console.log(obj);
+
+		document.getElementById("fnamee").innerHTML=obj.employees[1].firstName
+		document.getElementById("lnamee").innerHTML=obj.employees[1].lastName
+	</script>
+</body>
+</html>

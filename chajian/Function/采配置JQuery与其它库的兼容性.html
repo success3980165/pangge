@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>采配置JQuery与其它库的兼容性</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.1.0.min.js"></script>
+	<script src="js/jquery.snippet.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css" />
+	<style>
+	body {
+		color: #fff;
+		background: url(css/i/bg.gif) repeat 0 0 #333;
+		padding: 25px 180px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:16px;
+		font-weight:bold;
+	}
+	</style>
+</head>
+<body>
+	<p>采配置JQuery与其它库的兼容性</p>
+	<pre class="js">
+//方法一： 为JQuery重新命名为 $j
+var $j = jQuery.noConflict();
+$j('#id')....
+
+//方法二： 推荐使用的方式
+(function($){
+    $(document).ready(function(){
+        //这儿，你可以正常的使用JQuery语法
+    });
+})(jQuery);
+</pre>
+</body>
+<script>
+	$(function() {
+		$("pre.js").snippet("javascript",{style:"acid",clipboard:"swf/ZeroClipboard.swf",transparent:false});
+	});
+</script>
+</html>

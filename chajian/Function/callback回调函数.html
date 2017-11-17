@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>callback</title>
+</head>
+<body>
+	<script>
+		//基本用法
+		function xia(fn){
+			fn();
+		}
+		function yu(){
+			console.log('xiayuting');
+		}
+		xia(yu);
+
+		//回调函数
+		function double(data){
+			var a=10;
+			return data*a;
+		}
+
+		function add(a,b,callback){
+			var sum = a+b;
+			//下面使用对象冒充也可以。
+			//return callback.call(this,a);
+			//return callback.call(this,sum);
+			return callback(sum);
+		}
+
+
+		//应用。可跟匿名函数
+		console.log(add(2,3,double));  //20
+		console.log(
+			add(2,3,function(data){
+				return data*100
+			})
+		);  //20
+
+		/*
+			1。首先执行add()函数 获得2+3=5。
+			2。然后 使用callback函数  处理return 5*10。
+		*/
+	</script>
+</body>
+</html>

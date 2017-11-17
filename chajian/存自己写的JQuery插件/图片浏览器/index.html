@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link href="icon.ico" rel="shortcut icon" />
+	<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
+	<meta content="写入描述" name="description" />
+	<meta content="写入关键字" name="Keywords" />
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.slice.movie.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#thumbnails img').movieSlice({
+				movieElement:'#movie'
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="container">
+		<h1>我喜欢的电影列表</h1>
+		<div id="thumbnails">
+			<img src="images/min/1.jpg" alt="" />
+			<img src="images/min/2.jpg" alt="" />
+			<img src="images/min/3.jpg" alt="" />
+			<img src="images/min/4.jpg" alt="" />
+			<img src="images/min/5.jpg" alt="" />
+			<img src="images/min/6.jpg" alt="" />
+			<img src="images/min/7.jpg" alt="" />
+		</div>
+		<div id="movieShow">
+			<img id="movie" src="" alt="电影大图显示" />
+		</div>
+		<div id="buttonBar">
+			<input type="button" value="第一张" id="firstMovie" />
+			<input type="button" value="上一张" id="precMovie" />
+			<input type="button" value="下一张" id="nextMovie" />
+			<input type="button" value="最后一张" id="lastMovie" />
+		</div>
+	</div>
+</body>
+</html>

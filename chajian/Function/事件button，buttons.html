@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>button，buttons</title>
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+	<h2>以下属性返回事件的鼠标键信息。</h2>
+	<p>-1：没有按下键。</p>
+	<p>0：按下主键（通常是左键）。</p>
+	<p>1：按下辅助键（通常是中键或者滚轮键）。</p>
+	<p>2：按下次键（通常是右键）。</p></p>
+	<button onmouseup="whichButton(event);">点击</button>
+	<script>
+		var whichButton = function (e) {
+			switch (e.button) {
+				case 0:
+					console.log('Left button clicked.');
+				break;
+				case 1:
+					console.log('Middle button clicked.');
+				break;
+				case 2:
+					console.log('Right button clicked.');
+				break;
+				default:
+					console.log('Unexpected code: ' + e.button);
+			}
+		}
+		/*
+			同时按下多个键的时候，每个按下的键对应的比特位都会有值。比如，同时按下左键和右键，会返回3（二进制为011）。
+		*/
+	</script>
+</body>
+</html>

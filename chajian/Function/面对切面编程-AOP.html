@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>面向切面 无侵入式</title>
+</head>
+<body>
+	<h1>面向切面 无侵入式</h1>
+	<p>AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续</p>
+	<p>可以通过预编译方式和运行期动态代理实现在不修改源代码的情况下给程序动态统一添加功能的一种技术。AOP实际是GoF设计模式的延续，设计模式孜孜不倦追求的是调用者和被调用者之间的解耦,提高代码的灵活性和可扩展性，AOP可以说也是这种目标的一种实现。</p>
+	<p>AOP、OOP在字面上虽然非常类似，但却是面向不同领域的两种设计思想。OOP（面向对象编程）针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分。</p>
+	<a href="http://baike.baidu.com/link?url=fenPF7qUfq0sxMJcIWx0TFooVH3mEmEV3gyWRWT431Olgn-aWd6kAarckhiYqHY550eWt2pIVTECbTTEv867_Gt-4v2wPeIq0udAKb9FhXi&qq-pf-to=pcqq.c2c">查看</a>
+	<script>
+		/*function xia(){
+			console.log(2);
+		}
+
+		Function.prototype.before = function(fn){
+			console.log(this);  //xia
+			var __self = this;
+			fn();
+			__self.apply(this,arguments);
+		};
+		Function.prototype.after = function(fn){
+			console.log(this);  //xia
+			var __self = this;
+			__self.apply(this,arguments);
+			fn();
+		};
+
+		xia.before(function(){
+			console.log(1);
+			console.log(this); //window
+		})
+		xia.after(function(){
+			console.log(3);
+			console.log(this); //window
+		})*/
+
+		function test(){
+			alert(2);
+			return 'me';
+		}
+
+		Function.prototype.before = function(fn){
+			var __self = this;
+			return function(){
+				fn.apply(this,arguments);
+				__self.apply(__self,arguments);
+			};
+		};
+		Function.prototype.after = function(fn){
+			var __self = this;  // 这里__self是 before返回的东西
+			return function(){
+				__self.apply(__self,arguments);
+				fn.apply(this,arguments);
+			};
+		};
+
+		/*挂载self=test  执行before回调  执行after的self  after自己执行回调*/
+		test.after(
+			function(){
+				alert(3);
+			}
+		).before(
+			function(){
+				alert(1);
+			}
+		)();
+	</script>
+</body>
+</html>

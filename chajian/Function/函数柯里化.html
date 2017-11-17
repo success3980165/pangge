@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数柯里化</title>
+</head>
+<body>
+	<h2>函数柯里化</h2>
+	<p>合并两个函数的参数。</p>
+	<p>curry函数 返回了一个函数，执行并传入了(1,2,3,4,5)</p>
+	<script>
+		/*
+		 * slice方法返回指定位置的数组成员组成的新数组，原数组不变。
+		 * 它的第一个参数为起始位置（从0开始），第二个参数为终止位置（但该位置的元素本身不包括在内）。
+		 * 如果省略第二个参数，则一直返回到原数组的最后一个成员。
+		 */
+		function curry(fn){  //咖喱curry
+			var  args = Array.prototype.slice.call(arguments, 1,arguments.lenth);  //curry(add,50)  通过slice().call把参数变成真正的数组
+			console.log(args); //这里是调用时的第一个括号 除了FN的参数[50, 60, 70]
+			return function(){
+				var innerArgs = Array.prototype.slice.call(arguments);  //这里是调用时的第二个括号了
+				console.log(innerArgs);  // [1, 2, 3, 4, 5]
+				var finalArgs = args.concat(innerArgs);  //合并数组
+				console.log(finalArgs);  // [50, 60, 70, 1, 2, 3, 4, 5]
+				return fn.apply(this,finalArgs);  //用add函数 计算参数
+			}
+		}
+		function add(){
+			var num = new Number();
+			var arr = Array.prototype.slice.call(arguments);  //调用最后的数组
+			for (var i = 0; i < arr.length; i++) {
+				num += arr[i];
+			}
+
+			return (num);
+		}
+
+		var num = curry(add,50,60,70)(1,2,3,4,5);  //因为curry返回的是函数 后面的(1,2,3,4,5)会在执行并传参
+		console.log(num);  //195
+	</script>
+</body>
+</html>

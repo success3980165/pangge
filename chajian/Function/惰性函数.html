@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>惰性函数-懒函数</title>
+</head>
+<body>
+	<h2>惰性函数-懒函数</h2>
+	<p>惰性函数定义，应用场景我们可以总结一下：</p>
+	<ul>
+		<li>应用频繁，如果只用一次，是体现不出它的优点出来的，用的次数越多，越能体现这种模式的优势所在；</li>
+		<li>固定不变，一次判定，在固定的应用环境中不会发生改变；</li>
+		<li>复杂的分支判断，没有差异性，不需要应用这种模式；</li>
+	</ul>
+	<p>惰性函数定义应用还体现在创建单例上：</p>
+	<pre>
+unction Universe() {
+
+	// 缓存的实例
+	var instance = this;
+
+	// 其它内容
+	this.start_time = 0;
+	this.bang = "Big";
+
+	// 重写构造函数
+	Universe = function () {
+		return instance;
+	};
+}
+	</pre>
+	<script>
+		//事件绑定
+		function addEvent (type, element, fun) {
+			if (element.addEventListener) {  //能力检测
+				element.addEventListener(type, fun, false);   //标准
+			}
+			else if(element.attachEvent){
+				element.attachEvent('on' + type, fun);  //IE
+			}
+			else{
+				element['on' + type] = fun;
+			}
+		}
+
+		//惰性函数-事件绑定
+		function Inert_addEvent (type, element, fun) {
+			if (element.addEventListener) {
+				Inert_addEvent = function (type, element, fun) {
+					element.addEventListener(type, fun, false);
+				}
+			}
+			else if(element.attachEvent){
+				Inert_addEvent = function (type, element, fun) {
+					element.attachEvent('on' + type, fun);
+				}
+			}
+			else{
+				Inert_addEvent = function (type, element, fun) {
+					element['on' + type] = fun;
+				}
+			}
+			return Inert_addEvent(type, element, fun);
+		}
+
+		//XMLHttpRequest对象（1）
+		function createXHR_1(){
+			if (typeof XMLHttpRequest != "undefined"){
+				return new XMLHttpRequest();
+			} else if (typeof ActiveXObject != "undefined"){
+				if (typeof arguments.callee.activeXString != "string"){
+					var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0","MSXML2.XMLHttp"];
+					for (var i=0,len=versions.length; i < len; i++){
+						try {
+							var xhr = new ActiveXObject(versions[i]);
+							arguments.callee.activeXString = versions[i];
+							return xhr;
+						} catch (ex){
+							//skip
+						}
+					}
+				}
+				return new ActiveXObject(arguments.callee.activeXString);
+			} else {
+				throw new Error("No XHR object available.");
+			}
+		}
+
+		//惰性函数-XMLHttpRequest对象（1）
+		function Inert_createXHR_1() {
+			if (typeof XMLHttpRequest != "undefined") {
+				Inert_createXHR_1 = function () {
+					return new XMLHttpRequest();
+				}
+				return new XMLHttpRequest();
+			} else if (typeof ActiveXObject != "undefined") {
+				var curxhr;
+				var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0","MSXML2.XMLHttp"];
+
+				for (var i = 0, len = versions.length; i < len; i++) {
+					try {
+						var xhr = new ActiveXObject(versions[i]);
+						curxhr = versions[i];
+						Inert_createXHR_1 = function () {
+							return new ActiveXObject(curxhr);
+						}
+						return xhr;
+					} catch (ex) {
+						//skip
+					}
+				}
+			} else {
+				throw new Error("No XHR object available.");
+			}
+		}
+
+		//XMLHttpRequest对象（2）
+		function createXHR_2() {
+			var xhr = null:
+			try{
+				//firefox, opera 8.0+, safair, ie7+
+				xhr = new XMLHttpRequest();
+			}catch(e){
+				//intermet explorer
+				try{
+					xhr = new ActiveXObject('MSXML2.XMLHttp');
+				}catch(e){
+					try{
+						xhr = new ActiveXObject('Microsoft.XMLHttp');
+					}catch(e){
+						xhr = null:
+					}
+				}
+			}
+			return xhr;
+		}
+
+		//惰性函数-XMLHttpRequest对象（2）
+		function Inert_createXHR_2() {
+			var xhr = null:
+			if (typeof XMLHttpRequest != "undefined") {
+				xhr = new XMLHttpRequest();
+				Inert_createXHR_2=function(){
+					return new XMLHttpRequest();
+				}
+			}else{
+				try{
+					xhr = new ActiveXObject('MSXML2.XMLHttp');
+					Inert_createXHR_2=function(){
+						return new ActiveXObject('MSXML2.XMLHttp');
+					}
+				}catch(e){
+					try{
+						xhr = new ActiveXObject('Microsoft.XMLHttp');
+						Inert_createXHR_2=function(){
+							return new ActiveXObject('Microsoft.XMLHttp');
+						}
+					}catch(e){
+						Inert_createXHR_2=function(){
+							return null;
+						}
+					}
+				}
+			}
+			return xhr;
+		}
+
+		//惰性函数-主体高
+		var Inert_getScrollY = function() {
+			if (typeof window.pageYOffset == 'number') {
+				Inert_getScrollY = function() {
+					return window.pageYOffset;
+				};
+			} else if ((typeof document.compatMode == 'string') && (document.compatMode.indexOf('CSS') >= 0) && (document.documentElement) &&(typeof document.documentElement.scrollTop == 'number')) {
+				Inert_getScrollY = function() {
+					return document.documentElement.scrollTop;
+				};
+			} else if ((document.body) && (typeof document.body.scrollTop == 'number')) {
+				Inert_getScrollY = function() {
+					return document.body.scrollTop;
+				}
+			} else {
+				Inert_getScrollY = function() {
+					return NaN;
+				};
+			}
+			return getScrollY();
+		}
+
+		function handleErr(err){
+			var errXHR = err;
+			console.log(errXHR);
+		}
+	</script>
+</body>
+</html>

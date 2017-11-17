@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>一个简洁的数组乱序的方法</title>
+</head>
+<body>
+	<h2>一个简洁的数组乱序的方法</h2>
+	<script>
+		//如果想让sort方法按照自定义方式排序，
+		//可以传入一个函数作为参数，表示按照自定义方法进行排序。
+		//该函数本身又接受两个参数，表示进行比较的两个元素。如果返回值大于0，表示第一个元素排在第二个元素后面；
+		//其他情况下，都是第一个元素排在第二个元素前面。
+		var arr = [1,2,3,4,5];
+		function shuffle (arr){
+			return arr.sort(
+				function (a,b){
+					console.log(a,b);
+					//该方法返回0到1之间的一个伪随机数，可能等于0，但是一定小于1。
+					//这里的 > 0.5 比较后返回的是布尔值。
+					return Math.random() > 0.5;
+				}
+			);
+		}
+
+		console.log(shuffle(arr));
+	</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试密码的强度</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.1.0.min.js"></script>
+	<script src="js/jquery.snippet.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css" />
+	<style>
+	body {
+		color: #fff;
+		background: url(css/i/bg.gif) repeat 0 0 #333;
+		padding: 25px 180px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:16px;
+		font-weight:bold;
+	}
+	</style>
+</head>
+<body>
+	<p>测试密码的强度</p>
+	<input type="password" name="pass" id="pass" />
+	<span id="passstrength"></span>
+	<pre class="js">
+//下面的正则表达式建议各位收藏哦，项目上有可能会用得着
+$('#pass').keyup(function(e) {
+      //密码为八位及以上并且字母数字特殊字符三项都包括
+     var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+
+  //密码为七位及以上并且字母、数字、特殊字符三项中有两项，强度是中等
+     var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+     var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+     if (false == enoughRegex.test($(this).val())) {
+             $('#passstrength').html('More Characters');
+     } else if (strongRegex.test($(this).val())) {
+             $('#passstrength').className = 'ok';
+             $('#passstrength').html('Strong!');
+     } else if (mediumRegex.test($(this).val())) {
+             $('#passstrength').className = 'alert';
+             $('#passstrength').html('Medium!');
+     } else {
+             $('#passstrength').className = 'error';
+             $('#passstrength').html('Weak!');
+     }
+     return true;
+});
+</pre>
+</body>
+<script>
+	$(function() {
+		//下面的正则表达式建议各位收藏哦，项目上有可能会用得着
+		$('#pass').keyup(function(e) {
+			//密码为八位及以上并且字母数字特殊字符三项都包括
+			var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+
+			//密码为七位及以上并且字母、数字、特殊字符三项中有两项，强度是中等
+			var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+			var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+			if (false == enoughRegex.test($(this).val())) {
+				$('#passstrength').html('More Characters');
+			} else if (strongRegex.test($(this).val())) {
+				$('#passstrength').className = 'ok';
+				$('#passstrength').html('Strong!');
+			} else if (mediumRegex.test($(this).val())) {
+				$('#passstrength').className = 'alert';
+				$('#passstrength').html('Medium!');
+			} else {
+				$('#passstrength').className = 'error';
+				$('#passstrength').html('Weak!');
+			}
+			return true;
+		});
+	});
+</script>
+<script>
+	$(function() {
+		$("pre.js").snippet("javascript",{style:"acid",clipboard:"swf/ZeroClipboard.swf",transparent:false});
+	});
+</script>
+</html>

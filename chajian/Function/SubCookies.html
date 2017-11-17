@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+	<title>SubCookies</title>
+	<script type="text/javascript" src="js/SubCookieUtil.js"></script>
+	<script type="text/javascript" src="js/EventUtil.js"></script>
+</head>
+<body>
+	<h2>SubCookieUtil.js</h2>
+	<p>必须在服务器环境下测试</p>
+	<p>
+		Name:
+		<span id="name-value">(none)</span>
+		<br />
+		Book:
+		<span id="book-value">(none)</span>
+	</p>
+	<input type="button" value="Delete Cookies" id="delete-btn1" />
+	<input type="button" value="Add Cookies" id="delete-btn2" />
+
+	<script type="text/javascript">
+
+		EventUtil.addHandler(window, "load", function(){
+
+			document.getElementById("name-value").innerHTML = SubCookieUtil.get("data", "name");
+			document.getElementById("book-value").innerHTML = SubCookieUtil.get("data", "book");
+
+			EventUtil.addHandler(document.getElementById("delete-btn1"), "click", function(){
+				SubCookieUtil.unset("data", "name");
+				SubCookieUtil.unset("data", "book");
+				//SubCookieUtil.unsetAll("data");
+			});
+
+			EventUtil.addHandler(document.getElementById("delete-btn2"), "click", function(){
+				//set some cookies
+				SubCookieUtil.set("data", "name", "Nicholas");
+				SubCookieUtil.set("data", "book", "Professional JavaScript");
+			});
+		});
+	</script>
+</body>
+</html>

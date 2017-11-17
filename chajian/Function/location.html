@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>document.location</title>
+</head>
+<body>
+	<script>
+		// 假定当前网址为http://user:passwd@www.example.com:4097/path/a.html?x=111#part1
+
+		document.location.href // "http://user:passwd@www.example.com:4097/path/a.html?x=111#part1"
+		document.location.protocol // "http:"
+		document.location.host // "www.example.com:4097"
+		document.location.hostname // "www.example.com"
+		document.location.port // "4097"
+		document.location.pathname // "/path/a.html"
+		document.location.search // "?x=111"
+		document.location.hash // "#part1"
+		document.location.user // "user"
+		document.location.password // "passed"
+
+		// 跳转到另一个网址
+		document.location.assign('http://www.google.com')
+		// 优先从服务器重新加载
+		document.location.reload(true)
+		// 优先从本地缓存重新加载（默认值）
+		document.location.reload(false)
+		// 跳转到另一个网址，但当前文档不保留在history对象中，
+		// 即无法用后退按钮，回到当前文档
+		document.location.assign('http://www.google.com')
+		// 将location对象转为字符串，等价于document.location.href
+		document.location.toString()
+
+		//虽然location属性返回的对象是只读的，但是可以将URL赋值给这个属性，网页就会自动跳转到指定网址。
+		document.location = 'http://www.example.com';
+		// 等价于
+		document.location.href = 'http://www.example.com';
+
+		//新窗口打开页面
+		window.open("http://www.baidu.com");
+	</script>
+</body>
+</html>

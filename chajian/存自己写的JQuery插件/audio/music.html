@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title>首页</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.js"></script>
+	<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="css/mobile.css" rel="stylesheet" />
+	<link href="css/music.css" rel="stylesheet" />
+	<style>
+		body{
+			background:#369;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+	</div>
+	<!--音乐 start-->
+	<div id="music">
+		<div class="music"></div>
+		<span>开启</span>
+		<audio src="music/music.mp3" id="mp3" autoplay loop></audio>
+	</div>
+	<script src="js/music.js"></script>
+	<!--音乐 end-->
+</body>
+</html>

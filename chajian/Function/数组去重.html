@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+
+<body>
+    <p>indexOf 方法返回给定元素在数组中第一次出现的位置，如果没有出现则返回-1。</p>
+    <p>jQuery.unique( array ) 排序一个DOM元素的数组，恰当的除去重复项。 请注意，这仅适用于DOM元素数组，而不能处理字符串或者数字数组。在jQuery 3.0中，这种方法已被弃用，只是jQuery.uniqueSort()的别名。请使用该方法代替。</p>
+    <script>
+    //其中第1种和第2种方法都用到了数组的indexOf方法。此方法的目的是寻找存入参数在数组中第一次出现的位置。很显然，js引擎在实现这个方法的时候会遍历数组直到找到目标为止。所以此函数会浪费掉很多时间。
+    Array.prototype.unique1 = function() {
+        var n = []; //一个新的临时数组
+        for (var i = 0; i < this.length; i++) //遍历当前数组
+        {
+            //如果当前数组的第i已经保存进了临时数组，那么跳过，
+            //否则把当前项push到临时数组里面
+            if (n.indexOf(this[i]) == -1) {
+                n.push(this[i])
+            };
+        }
+        return n;
+    }
+    console.log([10,11,10,12].unique1());
+    Array.prototype.unique2 = function() {
+        var n = [this[0]]; //结果数组
+        for (var i = 1; i < this.length; i++) //从第二项开始遍历
+        {
+            //如果当前数组的第i项在当前数组中第一次出现的位置不是i，
+            //那么表示第i项是重复的，忽略掉。否则存入结果数组
+            if (this.indexOf(this[i]) == i) {
+                n.push(this[i])
+            };
+        }
+        return n;
+    }
+
+    //第3种方法用的是hash表。把已经出现过的通过下标的形式存入一个object内。下标的引用要比用indexOf搜索数组快的多。
+    Array.prototype.unique3 = function() {
+        var n = {}, //n为hash表，r为临时数组
+            r = [],
+            len = this.length,
+            val, type;
+        for (var i = 0; i < this.length; i++) { //遍历当前数组
+            val = this[i];
+            type = typeof val;
+            if (!n[val]) {
+                n[val] = [type];
+                r.push(val);
+            } else if (n[val].indexOf(type) < 0) {
+                n[val].push(type);
+                r.push(val);
+            }
+        }
+        return r;
+    }
+
+    //这个方法的思路是先把数组排序，然后比较相邻的两个值。 排序的时候用的JS原生的sort方法，JS引擎内部应该是用的快速排序吧。 最终测试的结果是此方法运行时间平均是第二种方法的三倍左右，不过比第一种和第三种方法快了不少。
+    Array.prototype.unique4 = function() {
+        this.sort();
+        var re = [this[0]];
+        for (var i = 1; i < this.length; i++) {
+            if (this[i] !== re[re.length - 1]) {
+                re.push(this[i]);
+            }
+        }
+        return re;
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 使用SVG寥寥数行实现圆环loading进度效果</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/circleloading-attr.js"></script>
+	<link rel="stylesheet" href="css/css-attr.css">
+</head>
+<body>
+	<p>选取目标（必填）： <b>class="ed-circleloading" data-circleloading="ed-circleloading"</b></p>
+	<p>初始值： <b>data-circleloading-val="50"</b> 不填即为0</p>
+	<p>背环：<b>data-circleloading-bg="#000 5 .5"</b>参数按顺序为：颜色 环宽 透明度。</p>
+	<p>进度环：<b>data-circleloading-tg="yellow 30 round .6"</b>参数按顺序为：颜色 环宽 圆角/直角 透明度。</p>
+	<p>字显：<b>data-circleloading-text="#222 bold 30 1 bottomleft"</b>参数按顺序为：颜色 字体粗细 字号 行高 位置（左上，右上，左下，右下，居中）<span>注：具体位置要靠行高调节</span>。</p>
+	<p>图显：<b>data-circleloading-src="./images/1.jpg 70"</b>参数按顺序为：图片地址 图片宽度<span> 注：图片只会居中，宽度为百分比值，如果想无缝连接就需要调整环宽</span>。</p>
+	<p>表单-数显：<b>data-circleloading-number="aaa"</b>aaa则是自定义CLASS名，默认30px宽。<span>注：已定位</span></p>
+	<p>滑块-数显：<b> data-circleloading-range="bbb"</b>bbb则是自定义CLASS名，默认30px宽。<span>注：已定位</span></p>
+	<div class="ed-circleloading" data-circleloading-val="50" data-circleloading-bg="#000 5 .5" data-circleloading-tg="yellow 20 round .6" data-circleloading-text="#222 bold 30 1 bottomleft" data-circleloading-src="./images/1.jpg 60" data-circleloading-number="aaa">
+		<svg viewbox="0 0 200 200">
+			<circle class="ed-circleloading-bg" cx="100" cy="100" r="80" fill="none"></circle>
+			<circle class="ed-circleloading-tg" cx="100" cy="100" r="80" fill="none" stroke-dasharray="0 9999" transform="matrix(0,-1,1,0,0,200)"></circle>
+		</svg>
+	</div>
+	<div class="ed-circleloading opts" data-circleloading-val="100" data-circleloading-text="#fff bold 30 3 center" data-circleloading-src="./images/1.jpg 60"  data-circleloading-number="aaa" data-circleloading-range="bbb">
+		<svg viewbox="0 0 200 200">
+			<circle class="ed-circleloading-bg" cx="100" cy="100" r="80" fill="none"></circle>
+			<circle class="ed-circleloading-tg" cx="100" cy="100" r="80" fill="none" stroke-dasharray="0 9999" transform="matrix(0,-1,1,0,0,200)"></circle>
+		</svg>
+	</div>
+	<div data-circleloading="ed-circleloading" data-circleloading-val="90"  data-circleloading-bg="green 10 .5" data-circleloading-tg="yellow 6 inherit .6" data-circleloading-text="#222 bold 16 2 topright" data-circleloading-src="./images/1.jpg 70" data-circleloading-number="aaa">
+		<svg viewbox="0 0 200 200">
+			<circle class="ed-circleloading-bg" cx="100" cy="100" r="80" fill="none"></circle>
+			<circle class="ed-circleloading-tg" cx="100" cy="100" r="80" fill="none" stroke-dasharray="0 9999" transform="matrix(0,-1,1,0,0,200)"></circle>
+		</svg>
+	</div>
+	<script>
+		$(function() {
+			/*new CircleLoading({
+				text:true,
+				img:true,
+				number:true,
+				range:true
+			});*/
+			$('body').circleloading({
+				text:true,
+				img:true,
+				number:true,
+				range:true
+			});
+		});
+	</script>
+</body>
+</html>

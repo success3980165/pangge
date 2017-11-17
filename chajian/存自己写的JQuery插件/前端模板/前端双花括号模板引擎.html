@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+
+	<hr>
+	<h1>测试1 - JSON - 渲染1遍</h1>
+	<ul id="box-1"></ul>
+	<script type="text/temp">
+		<li>姓名：{{name}}，年龄：{{age}}</li>
+	</script>
+
+	<hr>
+	<h1>测试2 - 数组 - 按模板循环渲染</h1>
+	<ul id="box-2"></ul>
+	<script type="text/temp">
+		<li>姓名：{{name}}，年龄：{{age}}</li>
+	</script>
+
+
+	<script>
+		//update: 2016 05 10
+			(function($) {
+				$.extend($.fn, {
+					jknanoo: function(data, template) {
+						// console.log(data, template);
+						//tools
+						function isjson(obj) {
+							return Object.prototype.toString.call(obj).toLowerCase() === "[object object]" && !obj.length;
+						}
+
+						function isarray(obj) {
+							return toString.apply(obj).toLowerCase() === '[object array]';
+						}
+
+						function nanoo(template, data) {
+							// console.log(template, data);
+							return template.replace(/\{\{([\w\.]*)\}\}/g, function(key, val) {
+
+								console.log(key,val);
+
+								if (typeof data[val] === 'string' || typeof data[val] === 'number') {
+									// console.log('nanoo string');
+									return data[val];
+								} else if (typeof data[val] === 'object') {
+									// console.log('nanoo object');
+
+									var itemsethtml = '';
+									for (ikey in data[val]) {
+										// 处理array
+										// console.log(data[val][ikey]);
+
+										itemsethtml += '<a>' + (data[val][ikey]) + '</a>'; //指定用a包裹
+									}
+
+									return itemsethtml;
+								} else if (data[val] === undefined) {
+									// console.log('nanoo undefined');
+									return '';
+								} else {
+									return 'jkinfo: a value died here.';
+								}
+							});
+						}
+
+						// 如果数据是JSON串 则转成对象
+						var html = '';
+						if (typeof(data) === 'string') {
+							data = JSON.parse(data);
+						};
+
+						//判断是不是对象
+						if (isjson(data)) {
+							//处理json
+							html = nanoo(template, data);
+						} else if (isarray(data)) {  //判断是不是数组
+							//处理array
+							for (var i in data) {
+								html += nanoo(template, data[i]) + '\n';
+							}
+						} else {
+							//处理错误格式
+							if (typeof data == 'string' && data.indexOf('<') === 0) {
+								html = 'jkinfo: it looks like an error of php outputs';
+							} else {
+								html = "jkinfo: datatype should be only json or array~";
+							}
+						}
+						//
+						return html;
+					},
+					jktemp: function(data, temp) {
+						// console.log(data,temp);
+
+						//main
+						var target = $(this);
+						if (temp) {
+							//判断模板参数为html还是jq选择器
+							if( temp.indexOf('<') === 0){
+								template = temp;
+							}else{
+								var template = $(temp).html();
+							}
+						} else if (target.next().attr('type').indexOf('temp') >= 0) {
+							var template = target.next().html();
+						} else {
+							var template = target.html();
+						}
+						//prenanoo
+
+
+						//jknanoo
+						var html = $(this).jknanoo(data, template);
+
+						//done
+						target.html(html);
+						return $(this);
+					}
+				})
+			})(window.jQuery || window.Zepto);
+
+	</script>
+
+	<script>
+		// TEST 1
+		var json_a = { name: '张三', age: 23 };
+		$('#box-1').jktemp(json_a); //无模版参数，默认下个 script[tyep="temp"] 标签.
+
+		// TEST 2
+		var json_b = [{ name: '张三', age: 23 },{ name: '张2三', age: 93 }];
+		$('#box-2').jktemp(json_b);
+	</script>
+</body>
+</html>

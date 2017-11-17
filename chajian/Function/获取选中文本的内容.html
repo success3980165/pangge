@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取选中文本的内容</title>
+	<script type="text/javascript" src="js/EventUtil.js"></script>
+	<style>
+		input {
+			padding:10px;
+		}
+	</style>
+</head>
+<body>
+	<h2>获取选中文本的内容</h2>
+	<p class="contenttext">调用document.selection时，不需要考虑textbox参数<br>选中上面文字</p>
+	<form method="post" action="javascript:;" id="myForm">
+		<div>
+			<br>
+			<input type="text" value="选中几个字就会输出到控制台几个字。">
+			<input type="text" value="Default value">
+			<input type="text" value="Default value">
+		</div>
+		<br>
+		<input type="submit" value="Submit Form" id="submit-btn">
+	</form>
+	<p>第一个文本域获得焦点时，会触发两次选中文本事件</p>
+	<script type="text/javascript">
+		var autotxt = document.forms[0].elements;
+
+		//自动获得焦点
+		for (var i = 0; i < autotxt.length; i++) {
+			EventUtil.addHandler(autotxt[i], "focus", function(event){
+				var event = EventUtil.getEvent(event);
+				this.select();
+			});
+		};
+
+		//使用window.getSelection() 在非IE内核使用
+		EventUtil.addHandler(document.getElementsByClassName('contenttext')[0], "mouseup", function(event){
+			var txt =window.getSelection();
+
+			if (txt.toString().length > 1) {
+				alert(txt);
+			}
+		});
+
+		//获取文本域选中文字
+		(function(){
+			function getSelectedText(textbox){
+				if (typeof textbox.selectionStart == "number"){
+					return textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);
+				} else if (document.selection){
+					return document.selection.createRange().text;
+				}
+			}
+
+			EventUtil.addHandler(window, "load", function(event){
+				var textbox = document.forms[0].elements[0];
+
+				EventUtil.addHandler(textbox, "select", function(event){
+					console.log(getSelectedText(textbox));
+				});
+
+				textbox.focus();
+			});
+
+		})();
+
+
+		//选中指定文本位置
+		(function(){
+			function selectText(textbox, startIndex, stopIndex){
+				if (textbox.setSelectionRange){
+					textbox.setSelectionRange(startIndex, stopIndex);
+				} else if (textbox.createTextRange){
+					var range = textbox.createTextRange();
+					range.collapse(true);
+					range.moveStart("character", startIndex);
+					range.moveEnd("character", stopIndex - startIndex);
+					range.select();
+				}
+			}
+
+			var btn = document.getElementById("submit-btn");
+			EventUtil.addHandler(btn, "click", function(event){
+				var textbox = document.forms[0].elements[2];
+				selectText(textbox, 4, 7);
+			});
+		})();
+	</script>
+</body>
+</html>

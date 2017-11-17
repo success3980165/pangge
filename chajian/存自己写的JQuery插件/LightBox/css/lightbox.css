@@ -1,0 +1,131 @@
+/*------------------ lightbox style ------------------*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin: 0; padding: 0; border: 0; font: inherit; font-size: 100%; vertical-align: baseline; }
+html { line-height: 1; font:62.5%/1.5 arial, tahoma, Verdana, simsun; }
+html,body{ height: 100%; }
+q, blockquote { quotes: none; }
+q:before, q:after, blockquote:before, blockquote:after { content: ""; content: none; }
+ol, ul { list-style: none; }
+h1,h2,h3,h4,h5,h6 { font-size: 100%; font-family: Microsoft YaHei , simhei; }
+img,input { vertical-align: middle; /* baseline/top/text-top/bottom */ }
+a img { border: none; }
+a,a:link {color: #333; text-decoration: none;}                  /* 未访问的链接 */
+a:visited { }                  /* 已访问的链接 */
+a:focus {outline: 0 none;}                   /* 获得焦点 */
+a:active {outline: none;}
+a:active, a:hover {text-decoration: none; color: #ff1a17;}           /* 选定的链接 鼠标移动到链接上 */
+.float-left {float: left!important;}
+.float-right {float: right!important;}
+.clearfix:after {content: "\200B"; display: block; height: 0; clear: both;}
+.clearfix {*zoom: 1;}
+.cf:before,.cf:after {content: "";display: table;}
+.cf:after {clear: both;}
+.cf {zoom: 1;}
+/*------------------ style ------------------*/
+/* lightbox */
+#lightbox-mask {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.6;
+	filter: alpha(opacity=60%);
+	z-index: 100;
+	display: none;
+	background: url(i/opacity.png) repeat left top;  /*ie<=9 can not click BUG*/
+}
+#lightbox-popup {
+	width: 500px;
+	position: fixed;
+	top: 50px;
+	left: 50%;
+	margin-left: -250px;
+	z-index: 110;
+	display: none;
+}
+.lightbox-pic-view {
+	position: relative;
+	border: 5px solid #fff;
+	border-radius: 3px;
+	box-shadow: 0 0 8px #333;
+	background: url(i/loading.gif) no-repeat center center #fff;
+}
+.lightbox-pic-view .lightbox-btn {
+	position: absolute;
+	top: 0;
+	width: 30%;
+	height: 100%;
+	z-index: 10;
+	cursor: pointer;
+	background: url(i/transparent.gif) repeat left top;  /*ie<=9 can not click BUG*/
+}
+.lightbox-pic-view .lightbox-prev-btn{
+	left:0;
+}
+.lightbox-pic-view .lightbox-next-btn{
+	right:0;
+}
+.lightbox-pic-view .lightbox-prev-btn-show{
+	background: url(i/prev.png) no-repeat left center;
+}
+.lightbox-pic-view .lightbox-next-btn-show{
+	background: url(i/next.png) no-repeat right center;
+}
+.lightbox-image {
+	display: block;
+}
+.lightbox-pic-caption {
+	height: 56px;
+	position: relative;
+	cursor: pointer;
+	margin: -61px 5px 0;
+	background-color: rgba(0,0,0,0.6);
+	background: url(i/opacity.png) repeat left top;  /*ie<=9 can not click BUG*/
+	z-index: 11;
+}
+.lightbox-caption-area {
+	padding: 10px 5px;
+	color: #fff;
+}
+.lightbox-of-index {
+	color: #999;
+}
+.lightbox-close-btn {
+	position: absolute;
+	right: 10px;
+	top:50%;
+	margin-top: -15px;
+	width: 30px;
+	height: 30px;
+	background: url(i/close.png) no-repeat center center;
+	background-size: 100%;
+}
+
+/* main style */
+.intr {
+	padding: 5px 10px;
+}
+.title {
+	padding: 10px;
+	font-size: 1.8rem;
+}
+.img-box {
+	padding: 0 10px 5px;
+}
+.img-box li {
+	float: left;
+	display: inline-block;
+	width: 140px;
+	height: 90px;
+	border: 1px solid #ddd;
+	text-align:center;
+	margin: 0 10px 5px 0;
+	background: #f5f5f5 url(i/loading.gif) no-repeat center center;
+	background-size: 20px;
+}
+.img-box img {
+	display: none;
+	cursor: pointer;
+}

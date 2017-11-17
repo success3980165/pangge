@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小tip中文英文左右padding致两端对齐实现</title>
+	<style>
+		.test_box {
+			float: left;
+			margin: 30px;
+			width: 300px;
+			padding: 10px;
+			background-color: #e0e0e0;
+			font-family: 'microsoft yahei';
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<h3>小tip:中文英文左右padding致两端对齐实现</h3>
+	<div id="testBox" class="test_box">在 object 上绑定一个callback回调函数。 只要event触发，该回调函数就会调用。如果你的一个页面含有大量的不同时间，我们约定使用冒号来为事件添加 命名空间 俗成地使用冒号来命名："poll:start", 或 "change:selection"。 事件字符串也可能是用空格分隔的多个事件列表（愚人码头注：即可以同时绑定多个事件，事件用空格分隔）...</div>
+	<div class="test_box">在 object 上绑定一个callback回调函数。 只要event触发，该回调函数就会调用。如果你的一个页面含有大量的不同时间，我们约定使用冒号来为事件添加 命名空间 俗成地使用冒号来命名："poll:start", 或 "change:selection"。 事件字符串也可能是用空格分隔的多个事件列表（愚人码头注：即可以同时绑定多个事件，事件用空格分隔）...</div>
+
+	<script>
+		var box = document.getElementById("testBox");
+
+		function alignment(el){
+			el.style.textAlign = "justify";
+			el.style.letterSpacing = '-.15em';
+			el.innerHTML = el.innerHTML.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '').split("").join(" ").replace(/\s{3}/g, " &nbsp; ");
+		}
+
+		alignment(box);
+	</script>
+</body>
+</html>

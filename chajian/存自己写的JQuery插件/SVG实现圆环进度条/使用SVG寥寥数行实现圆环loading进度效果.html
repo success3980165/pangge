@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 使用SVG寥寥数行实现圆环loading进度效果</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<style>
+		circle {
+			-webkit-transition: stroke-dasharray 1.25s;
+			transition: stroke-dasharray 1.25s;
+		}
+	</style>
+</head>
+<body>
+	<p>line、rect、ellipse、circle、polygon和path标签，分别表示线条、矩形、圆、椭圆、多边形和路径。</p>
+	<p>g标签用于将多个形状组成一组，表示group。</p>
+	<p>fill 属性表示填充色，stroke属性表示描边色，stroke-width属性表示边线宽度。</p>
+	<p>cx、cy、r属性分别为x坐标、y坐标和半径。</p>
+	<p>viewbox：svg width="1000" height="1000" viewBox="100 100 400 400"</p>
+	<p>上面代码的意思是：把svg的左上角100，100和右下角400，400区域内的图像放入1000，1000内，视野 视窗</p>
+	<p>SVG stroke-dasharray 属性用于创建虚线 第一个值是线宽，第二个值是留白宽</p>
+	<svg width="200" height="200" viewbox="0 0 200 200">
+		<circle cx="100" cy="100" r="75" stroke-width="25" stroke="#D1D3D7" fill="none"></circle>
+		<circle cx="100" cy="100" r="75" stroke-width="25" stroke="#00A5E0" fill="none" transform="matrix(0,-1,1,0,0,200)" stroke-dasharray="0 2000"></circle>
+	</svg>
+	<p>拖我：<input id="range" type="range" min="0" max="100" value="30" style="width:300px;"></p>
+	<p>输入1-100：<input type="number" id="number" min="0" max="100" value="30"></p>
+
+	<script>
+		if (window.addEventListener) {
+			//element
+			var range = document.querySelector("#range");
+			var circle = document.querySelectorAll("circle")[1];
+
+			if (range && circle) {
+				range.addEventListener("change", function() {
+					var val = this.value;
+					var percent = val / 100;
+					console.log(percent);
+					var perimeter = Math.PI * 2 * 75;
+					console.log(perimeter);
+
+					circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
+					$('#number').val(val);
+				});
+			}
+		}
+
+		$(function() {
+			$('#number').change(function(event) {
+				var val = $(this).val();
+				var percent = val / 100;
+				var perimeter = Math.PI * 2 * 75;
+
+				circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
+				$('#range').val(val);
+
+			});
+
+			setTimeout(function(){
+				var percent = 30 / 100;
+				var perimeter = Math.PI * 2 * 75;
+
+				circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
+			}, 0)
+		});
+	</script>
+</body>
+</html>

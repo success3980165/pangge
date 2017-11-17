@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>计数器</title>
+</head>
+
+<body>
+	<div class="foo">click me</div>
+    <script>
+
+    	// 好像是没什么问题哦，但是！变量times为什么放在外面，就用了一次放在外面，命名冲突了怎么办，或者万一在外面修改了怎么办。
+	    // var times = 0;
+	    // var foo = document.querySelector('.foo');
+	    // foo.addEventListener('click', function() {
+	    //     times++;
+	    //     console.log(times);
+	    // }, false);
+
+	    //逼格高了起来！
+	    var foo = document.querySelector('.foo');
+	    foo.addEventListener('click', (function() {
+		    var times = 0;
+		    return function() {
+		        times++;
+		        console.log(times);
+		    }
+		})(), false);
+    </script>
+</body>
+
+</html>

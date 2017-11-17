@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态加载CSS</title>
+</head>
+<body>
+	<h2>动态加载CSS</h2>
+	<p>
+		You should see the background color change after clicking the button.
+	</p>
+	<input class="btn btn-warning" type="button" value="Add Style" onclick="addStyle()">
+	<input class="btn btn-success" type="button" value="Add CSS" onclick="loadStyles('http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css')">
+
+	<script type="text/javascript">
+
+		//动态加载外部CSS
+		function loadStyles(url){
+			var link = document.createElement("link");
+			link.rel = 'stylesheet';
+			link.type = "text/css";
+			link.href = url;
+			var head = document.getElementsByTagName("head")[0];
+			head.appendChild(link);
+		}
+
+		//动态加载CSS字符串
+		function loadStyleString(css){
+			var style = document.createElement("style");
+			style.type = "text/css";
+			try{
+				style.appendChild(document.createTextNode(css));
+			} catch (ex){
+				style.styleSheet.cssText = css;
+			}
+			var head = document.getElementsByTagName("head")[0];
+			head.appendChild(style);
+		}
+
+		function addStyle(){
+			loadStyleString("body{background-color:#f5f5f5}");
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Base64转码</title>
+</head>
+<body>
+	<h2>Base64转码</h2>
+	<p>这两个方法不适合非ASCII码的字符，浏览器会报错。</p>
+	<p>btoa()：字符串或二进制值转为Base64编码</p>
+	<p>atob()：Base64编码转为原来的编码</p>
+	<script>
+		console.log(window.btoa("Hello World")); // "SGVsbG8gV29ybGQ="
+		console.log(window.atob("SGVsbG8gV29ybGQ=")); // "Hello World"
+
+		function b64Encode( str ) {
+			return window.btoa(unescape(encodeURIComponent( str )));
+		}
+
+		function b64Decode( str ) {
+			return decodeURIComponent(escape(window.atob( str )));
+		}
+
+		// 使用方法
+		console.log(b64Encode('你好')); // "5L2g5aW9"
+		console.log(b64Decode('5L2g5aW9')); // "你好"
+	</script>
+</body>
+</html>

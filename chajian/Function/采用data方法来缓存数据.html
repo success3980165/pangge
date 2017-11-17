@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>采用data方法来缓存数据</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.1.0.min.js"></script>
+	<script src="js/jquery.snippet.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css" />
+	<style>
+	body {
+		color: #fff;
+		background: url(css/i/bg.gif) repeat 0 0 #333;
+		padding: 25px 180px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:16px;
+		font-weight:bold;
+	}
+	</style>
+</head>
+<body>
+	<p>采用data方法来缓存数据</p>
+	<pre class="js">
+var cache = {};
+$.data(cache,'key','value'); //缓存数据
+//获取数据
+$.data(cache,'key');
+
+// HTML元素 dataset属性
+// dataset属性用于操作HTML标签元素的data-*属性。下面是一个有data-*属性的div节点。
+&lt;div id="myDiv" data-id="myId"&gt;&lt;/div&gt;
+
+// 要读取data-id属性，可以从当前节点的dataset.id属性读取。
+var id = document.getElementById("myDiv").dataset.id;
+
+// 要设置data-id属性，可以直接对dataset.id赋值。如果该属性不存在，将会被新建。
+document.getElementById('myDiv').dataset.id = 'hello';
+
+// 删除一个data-*属性，可以直接使用delete命令。
+delete document.getElementById("myDiv").dataset.id;
+
+// 除了dataset属性，也可以用getAttribute('data-foo')、removeAttribute('data-foo')、setAttribute('data-foo')、hasAttribute('data-foo')等方法操作data-*属性。
+// 需要注意的是，dataset属性使用骆驼拼写法表示属性名，这意味着data-hello-world会用dataset.helloWorld表示。
+// 而如果此时存在一个data-helloWorld属性，该属性将无法读取，也就是说，data-*属性本身只能使用连词号，不能使用骆驼拼写法。
+
+</pre>
+</body>
+<script>
+	$(function() {
+		$("pre.js").snippet("javascript",{style:"acid",clipboard:"swf/ZeroClipboard.swf",transparent:false});
+	});
+</script>
+</html>

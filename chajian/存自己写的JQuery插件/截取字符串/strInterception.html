@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>strInterception.js</title>
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/strInterception.js"></script>
+	<style>
+		.red {
+			color:#36c;
+		}
+		li {
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">123456789012</li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">夏宇霆夏宇霆</li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">夏宇霆123456789</li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">1234567890</li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">1 2 3 4 5 6 </li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">1 2 3 4 5 6 7 8 9 0 1 2 3</li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">Array对象</li>
+		<li class="ed-strInterception" data-strlength="10" data-strfill="...">包装对象和Boolean对象（基本完成）</li>
+		<li data-strInterception="ed-strInterception" data-strlength="10">Number对象</li>
+		<li data-strInterception="ed-strInterception" data-strlength="10">String对象</li>
+		<li data-strInterception="ed-strInterception" data-strlength="20" data-strfill="---">触发给定event或用空格隔开的事件的回调函数。后续传入trigger的参数会传递到触发事件的回调函数里。</li>
+		<li data-strInterception="ed-strInterception" data-strlength="20">onceobject.once(event, callback, [context])</li>
+		<li data-strInterception="ed-strInterception" data-strlength="20">让object监听另一个（other）对象上的一个特定事件。</li>
+		<li data-strInterception="ed-strInterception" data-strlength="20">用法跟listenTo很像，但是事件触发一次后callback将被移除。</li>
+		<li class="ed-strInterception" data-strInterception="ed-strInterception" data-strlength="20">CatalogofEvents（事件目录） </li>
+	</ul>
+	<script>
+		$(function() {
+			setTimeout(function(){
+				/*new StrInterception();*/
+
+				$('body').strinterception();
+			}, 0);
+		});
+	</script>
+</body>
+</html>

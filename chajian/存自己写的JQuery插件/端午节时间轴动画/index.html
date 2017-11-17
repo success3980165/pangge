@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>粽情端午</title>
+	<script src="./js/js.js"></script>
+	<link href="./css/css.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="main">
+		<div class="c-zhongzi-box" id="c-zhongzi-box">
+			<div class="c-zongzi" id="c-zongzi"></div>
+			<div class="c-shengzi-1" id="c-shengzi"></div>
+			<div class="c-zongzirou" id="c-zongzirou"></div>
+			<div class="c-zuoye" id="c-zuoye"></div>
+			<div class="c-youye" id="c-youye"></div>
+			<div class="c-diye" id="c-diye"></div>
+			<div class="c-t1" id="c-t1"></div>
+			<div class="c-t2" id="c-t2"></div>
+		</div>
+		<div class="text" id="text">
+			<div class="caption" id="caption"></div>
+			<div class="to">粽白的小伙伴们：</div>
+			<div class="msg">在端午节来临之际，哥哥给大家送来心意了，祝大家好运、吉祥、如意、幸福、快快乐乐每一天、哥哥永远与你相伴！</div>
+			<div class="from">粽白</div>
+		</div>
+	</div>
+	<script>
+		//初始场景
+		var s1 = new Timeline();
+		//粽子拆开的场景
+		var s2 = new Timeline();
+		//粽子肉旋转的场景
+		var s3 = new Timeline();
+
+		s1.add(1,function(){
+			g('c-zhongzi-box').className='c-zhongzi-box c-zhongzi-box-rock';
+			g('c-shengzi').onclick = function(){
+				s2.start();
+				g('c-shengzi').onclick = function(){
+
+				}
+			}
+		},'粽子抖动');
+
+		s2.add(1,function(){
+			g('c-zhongzi-box').className='c-zhongzi-box';
+			g('text').className='text text-in';
+		},'解开绳子准备');
+
+		s2.add(100,function(){
+			g('c-shengzi').className='c-shengzi-2';
+		},'解开第一根');
+
+		s2.add(500,function(){
+			g('c-shengzi').className='c-shengzi-3';
+		},'解开第二根');
+
+		s2.add(1000,function(){
+			g('c-shengzi').className='c-shengzi-4';
+			g('caption').className='caption caption-rock';
+		},'解开第三根');
+
+		s2.add(1500,function(){
+			g('c-shengzi').className='c-shengzi-0';
+		},'归零隐藏绳子');
+
+		s2.add(2000,function(){
+			g('c-zongzi').className='c-zongzi c-zongzi-out';
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in';
+			g('c-zuoye').className='c-zuoye c-zuoye-in';
+			g('c-youye').className='c-youye c-youye-in';
+			g('c-t1').className='c-t1 c-t-in';
+			g('c-t2').className='c-t2 c-t-miroor-0';
+		},'粽子肉出来,叶子出来');
+
+		s2.add(3000,function(){
+			g('c-zuoye').className='c-zuoye c-zuoye-in c-zuoye-out';
+			g('c-youye').className='c-youye c-youye-in c-youye-out';
+			g('c-diye').className='c-diye c-diye-in';
+			s3.start();
+		},'叶子结束');
+
+		s3.add(1000,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-1';
+		},'粽子肉托盘旋转动画-1');
+		s3.add(1200,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-2';
+			g('c-t1').className='c-t1 c-t-in c-t-view-2';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-2';
+		},'粽子肉托盘旋转动画-2');
+		s3.add(1400,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-3';
+			g('c-t1').className='c-t1 c-t-in c-t-view-3';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-3';
+		},'粽子肉托盘旋转动画-3');
+		s3.add(1600,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-4';
+			g('c-t1').className='c-t1 c-t-in c-t-view-4';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-4';
+		},'粽子肉托盘旋转动画-4');
+		s3.add(1800,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-0';
+			g('c-t1').className='c-t1 c-t-in c-t-miroor-0';
+			g('c-t2').className='c-t2 c-t-in c-t-view-0';
+		},'粽子肉托盘旋转动画-0');
+		s3.add(3000,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-4';
+			g('c-t1').className='c-t1 c-t-in c-t-view-4';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-4';
+		},'粽子肉托盘旋转动画-4');
+		s3.add(3200,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-3';
+			g('c-t1').className='c-t1 c-t-in c-t-view-3';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-3';
+		},'粽子肉托盘旋转动画-3');
+		s3.add(3400,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-2';
+			g('c-t1').className='c-t1 c-t-in c-t-view-2';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-2';
+		},'粽子肉托盘旋转动画-2');
+		s3.add(3600,function(){
+			g('c-zongzirou').className='c-zongzirou c-zongzirou-in c-zongzirou-view-1';
+			g('c-t1').className='c-t1 c-t-in c-t-view-0';
+			g('c-t2').className='c-t2 c-t-in c-t-miroor-0';
+		},'粽子肉托盘旋转动画-1');
+		s3.add(5000,function(){
+			s3.start();
+		},'粽子肉托盘旋转动画-1');
+
+		// s1.start();
+	</script>
+</body>
+</html>

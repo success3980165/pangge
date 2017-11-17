@@ -1,0 +1,148 @@
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{
+ margin:0;
+ padding:0;
+ border:0;
+ font-size:100%;
+ vertical-align:baseline;
+}
+body, button, input, select, textarea {
+ font:12px/1.5 arial, tahoma,simsun, Verdana;
+}
+table,td,tr,th {
+ font-size:12px;
+}
+input, label, button {
+ /*vertical-align: middle;*/
+}
+table {
+ border-collapse:collapse;
+ border-spacing:0;
+}
+i,em {
+ font-style:normal;
+}
+ol,ul {
+ list-style:none;
+}
+li {
+ list-style-type:none;
+}
+img {
+ vertical-align:top;
+ border:0 none;
+}
+h1,h2,h3,h4,h5,h6 {
+ /*font-size:12px;
+ font-weight:normal;*/
+ font-size:100%;
+}
+p {
+ color:#666;
+ word-break:break-all;
+ word-wrap:break-word;
+}
+a {
+ blr:expression(this.onFocus=this.blur());
+}
+a,img{
+huerreson:expression(onfocus=function(){this.blur()})
+}
+a,a:link {                      /* 未访问的链接 */
+ color: #333;
+ text-decoration: none;
+}
+a:visited {                   /* 已访问的链接 */
+
+}
+a:active { outline: none; star:expression(this.onFocus=this.blur());
+}
+
+a:active, a:hover {            /* 选定的链接 鼠标移动到链接上 */
+ text-decoration: /*underline*/none;
+ color:#ff1a17;
+
+}
+a:focus {
+ outline: none;
+}
+.underline {
+ text-decoration:underline!important;
+}
+.clear {
+ clear:both;
+ height:0;
+ line-height:0;
+ font-size:clear0px;
+}
+.clearfix {
+ display:inline-block;
+}
+.clearfix:after {
+ content: ".";
+ display: block;
+ height: 0;
+ clear: both;
+ visibility: hidden;
+}
+* html .clearfix {
+ height: 1%;
+}
+.pointer {
+ cursor: pointer;
+}
+.absolute {
+ position:absolute;
+}
+.ie6{
+ display:inline;
+}
+.block {
+ display:block;
+}
+.hidden {
+ overflow:hidden;/*visibility: hidden;*/
+}
+.indent {
+ text-indent:2em;
+}
+.p_center {
+ text-align:center;
+}
+.p_high {
+ margin-bottom:30px;
+}
+.tahoma {
+ font-family:tahoma;
+}
+.Verdana {
+ font-family:Verdana;
+}
+.yahei {
+ font-family:Microsoft YaHei , simhei;
+}
+.simsun {
+ font-family:simsun;
+}
+.simhei{
+ font-family:simhei;
+}
+
+.bold {
+ font-weight:bold;
+}
+.float_left {
+ float:left!important;
+}
+.float_right {
+ float:right!important;
+}
+.shadow {
+-moz-box-shadow:1px 1px 1px #dfdfdf;
+-webkit-box-shadow:1px 1px 1px #dfdfdf;
+ box-shadow:1px 1px 1px #dfdfdf;
+/* For IE 8 */
+-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, color='#dfdfdf')";
+/* For IE 5.5 - 7 */
+ filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, color='#dfdfdf');
+}
+/*style*/

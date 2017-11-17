@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>延迟加载、懒加载、预加载</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+    body {
+        background-color: #222;
+        color:#fff;
+        text-align:center;
+    }
+
+    .a {
+        width: 360px;
+        height: 524px;
+        border: 3px solid #fff;
+        padding:30px;
+    }
+    </style>
+</head>
+
+<img data-ed-imgdelayload="https://www.baidu.com/img/bdlogo.png" src="" alt="">
+<br>
+<button id="clickme">点击事件触发延迟加载</button>
+<br><br><br><br><br>
+<p>此白框里的图片1秒后会触发callback</p>
+<img class="a" src="http://gruntjs.com/img/grunt-logo.png" alt="">
+
+<body>
+</body>
+<script>
+$(function() {
+    //延迟加载
+    function imgDelayLoad(el) {
+        var els = el.find('img');
+
+        $.each(els, function(index, val) {
+            var url = $(this).data('ed-imgdelayload');
+            if (url != undefined) {
+                $(this).attr('src', url);
+            }
+        });
+    }
+
+    $('#clickme').on('click', function(event) {
+        event.preventDefault();
+        imgDelayLoad($('body'));
+    });
+});
+</script>
+<script>
+$(function() {
+    //预加载图片。
+    function preLoadImg(el, callback, time) {
+        $(el).hide();
+
+        if (!time) {
+            time = 0;
+        }
+
+        $.each($(el), function(index, val) {
+            var self = $(this);
+            var sourceSrc = $(this).attr('src');
+            var img = new Image();
+            img.src = sourceSrc;
+
+            if (!!window.ActiveXObject) {
+                img.onreadystatechange = function() {
+                    if (this.readyState == 'complete') {
+                        setTimeout(function() {
+                            self.show();
+                            callback();
+                        }, time);
+                    };
+                };
+            } else {
+                img.onload = function() {
+                    setTimeout(function() {
+                        self.show();
+                        callback();
+                    }, time);
+                }
+            };
+        });
+    }
+
+    preLoadImg('.a', function() {
+        console.log('OK');
+    }, 1000);
+});
+</script>
+
+</html>

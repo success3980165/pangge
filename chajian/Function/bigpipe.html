@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bigpipe</title>
+	<script>
+		var Bigpipe ={
+			view:function(pInfo){
+				document.getElementById(pInfo.pid).innerHTML = pInfo.html;
+			}
+		}
+		/*
+			http 1.1的分块编码传输
+			浏览器接收完一个完整的 chuned 就开始渲染
+			response时，http头：Transfer-Encoding:chunked
+			一个页面的建立成本，要比传输成本更高
+		*/
+	</script>
+</head>
+<body>
+	<div>我是第一屏</div>
+	<div id="p_1"></div>
+	<div id="p_2"></div>
+</body>
+	<script>
+		Bigpipe.view({
+			pid:'p_1',
+			html:'<div>我是第一Pagelet块</div>',
+			js:[],
+			css:[],
+			data:{}
+		});
+	</script>
+	<script>
+		Bigpipe.view({
+			pid:'p_2',
+			html:'<div>我是第二Pagelet块</div>',
+			js:[],
+			css:[],
+			data:{}
+		});
+	</script>
+</html>

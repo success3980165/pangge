@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Lightbox插件开发</title>
+	<link rel="stylesheet" href="css/lightbox.css">
+</head>
+<body>
+	<p class="intr">1.用图片或任意节点的class和data-role来指定要启动的lightbox预览</p>
+	<p class="intr">2.用data-group来指定属于那一个组别</p>
+	<p class="intr">3.用data-id来标识当前图片的唯一标识（最终找出他在组里面的索引位置）</p>
+	<p class="intr">4.用data-source来指定源图的地址</p>
+	<p class="intr">5.用data-caption来定义图片的描述文字</p>
+	<h1 class="title">第一组图片</h1>
+	<ul class="img-box cf">
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-source="images/img1.jpg" data-group="group-1" data-id="num1" src="images/img1.jpg" data-caption="ONEPIECE路飞" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img2.jpg" data-group="group-1" data-id="num2" src="images/img2.jpg" data-caption="鸣人仙人模式" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img3.jpg" data-group="group-1" data-id="num3" src="images/img3.jpg" data-caption="火拳艾斯ACE" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img4.jpg" data-group="group-1" data-id="num4" src="images/img4.jpg" data-caption="ONEPIECE草帽海贼团全员" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img5.jpg" data-group="group-1" data-id="num5" src="images/img5.jpg" data-caption="三刀流索隆" alt=""></li>
+	</ul>
+	<h1 class="title">第二组图片</h1>
+	<ul class="img-box cf">
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img6.jpg" data-group="group-2" data-id="num1" src="images/img6.jpg" data-caption="萌系动画合计" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img7.jpg" data-group="group-2" data-id="num2" src="images/img7.jpg" data-caption="火影忍者七代目-漩涡鸣人" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img8.jpeg" data-group="group-2" data-id="num3" src="images/img8.jpeg" data-caption="索隆鬼斩" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img9.jpg" data-group="group-2" data-id="num4" src="images/img9.jpg" data-caption="自来也仙人模式" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img10.jpg" data-group="group-2" data-id="num5" src="images/img10.jpg" data-caption="七龙珠" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img11.jpg" data-group="group-2" data-id="num6" src="images/img11.jpg" data-caption="死神黑崎一护虚化" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img12.jpg" data-group="group-2" data-id="num7" src="images/img12.jpg" data-caption="ACE" alt=""></li>
+	</ul>
+	<h1 class="title">第三组图片</h1>
+	<ul class="img-box cf">
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img9.jpg" data-group="group-3" data-id="num1" src="images/img9.jpg" data-caption="自来也仙人模式" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img6.jpg" data-group="group-3" data-id="num2" src="images/img6.jpg" data-caption="萌系动画合计" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img2.jpg" data-group="group-3" data-id="num3" src="images/img2.jpg" data-caption="鸣人仙人模式" alt=""></li>
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img4.jpg" data-group="group-3" data-id="num4" src="images/img4.jpg" data-caption="ONEPIECE草帽海贼团全员" alt=""></li>
+	</ul>
+	<h1 class="title">第四组图片</h1>
+	<ul class="img-box cf">
+		<li><img class="js-lightbox ed-imgauto" data-role="lightbox" data-imgauto="ed-imgauto" data-source="images/img3.jpg" data-group="group-4" data-id="num1" src="images/img3.jpg" data-caption="火拳艾斯ACE" alt=""></li>
+	</ul>
+	<!-- 遮罩层
+	<div id="lightbox-mask"></div>
+	弹出层
+	<div id="lightbox-popup">
+		<div class="lightbox-pic-view">
+			<span class="lightbox-btn lightbox-prev-btn"></span>
+			<img class="lightbox-image" src="images/aisi.jpg" alt="">
+			<span class="lightbox-btn lightbox-next-btn"></span>
+		</div>
+		<div class="lightbox-pic-caption">
+			<div class="lightbox-caption-area">
+				<p class="lightbox-pic-desc">图片介绍</p>
+				<span class="lightbox-of-index">当前索引：1  fo  4</span>
+			</div>
+			<span class="lightbox-close-btn"></span>
+		</div>
+	</div> -->
+
+
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/lightbox-jq.js"></script>
+	<script src="js/imgauto.js"></script>
+	<script>
+		$(function() {
+			/*new LightBox({
+				speed:'fast',
+				distancesWidth:100,
+				distancesHeight:100
+			});
+			new ImgAuto({
+				el:'.img-box'
+			});*/
+			$('body').imgauto({
+				el:'.img-box'
+			}).lightbox({
+				speed:'fast',
+				distancesWidth:100,
+				distancesHeight:100
+			});
+		});
+	</script>
+</body>
+</html>

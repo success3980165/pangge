@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图插件-Carousel</title>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/carousel.js"></script>
+	<style>
+		html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font: inherit;
+			font-size: 100%;
+			vertical-align: baseline;
+		}
+		html {
+			line-height: 1;
+		}
+		html,body{
+			font:12px/1.5 arial, tahoma, Verdana, simsun;
+			height: 100%;
+		}
+
+		ul {
+			list-style-type:none;
+		}
+
+		a {
+			color:#666;
+			text-decoration:none;
+		}
+
+		a:hover {
+			color:#000;
+			text-decoration:underline;
+		}
+
+		img {
+			border:none;
+		}
+		b{
+			color: orange;
+		}
+		p{
+			font:bold 14px/1.5 Microsoft YaHei , simhei;
+			padding: 15px 30px 0;
+		}
+		span {
+			color: red;
+		}
+		.ed-box {
+			position:relative;
+			width: 932px;
+			height: 222px;
+			margin:100px auto;
+			z-index:100;
+		}
+		.ed-carousel , [data-carousel=ed-carousel]{
+			position:relative;
+			overflow:hidden;
+			width:100%;
+			height:100%;
+		}
+		.ed-carousel-ul{
+			position:absolute;
+			height: 100%;
+			left:0;
+			z-index:1;
+		}
+		.ed-carousel-ul>li {
+			height: 100%;
+			float: left;
+		}
+		.ed-carousel-ul>li img{
+			 display:none;
+		}
+		.ed-next,.ed-prev {
+			position: absolute;
+			width: 45px;
+			height: 100px;
+			top: 61px;
+			filter:alpha(opacity=30);
+			opacity: 0.3;
+			cursor: pointer;
+		}
+		.ed-next:hover,.ed-prev:hover {
+			filter:alpha(opacity=60);
+			opacity: 0.6;
+		}
+		.ed-next {
+			background: url(css/i/sprite.png) no-repeat -55px 0px;
+			right: 0;
+			z-index:8;
+		}
+		.ed-prev {
+			background: url(css/i/sprite.png) no-repeat;
+			left: 0;
+			z-index:9;
+		}
+		.ed-tabs{
+			position: absolute;
+			bottom: 10px;
+			z-index:7;
+		}
+		.ed-tabs>li{
+			float: left;
+			width: 20px;
+			height: 8px;
+			background-color: rgba(100,100,100,0.3);
+			border: 1px solid #ccc;
+			margin-right: 6px;
+			cursor: pointer;
+		}
+		.ed-tabs .ed-wite {
+			background-color: rgba(168,54,80,1);
+		}
+		.ed-text{
+			position: absolute;
+			bottom: 0;
+			z-index:6;
+		}
+		.ed-text li{
+			width: 932px;
+			height: 40px;
+			background-color: rgba(0,0,0,0.6);
+			text-align: center;
+			line-height: 40px;
+			font-size:16px;
+			font-weight: 900;
+			font-family:Microsoft YaHei , simhei;
+			color: #fff;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<p>选取目标（必填）： <b>class="ed-carousel" data-carousel="ed-carousel"</b>。</p>
+	<p>是否图片轮播图： <b>imgcache:false（默认不开启）</b>开启后大图轮播会有个LOADING的图片预加载功能 <span>注：不开启时，注意CSS 不要 display:none</span>。</p>
+	<p>是否开启左右翻页：<b>page:false（默认不开启）</b>如果开启（true）此功能，要在项目上指定 <b>data-carousel-page="in" 属性 </b>参数按顺序为：in即轮播图上 out即轮播图两侧。</p>
+	<p>是否开启切换标签：<b>tab:false（默认不开启）</b>如果开启（true）此功能，要在项目上指定  <b>data-carousel-tab="in" 属性 </b>参数按顺序为：in即轮播图上 bottom即轮播图下面。</p>
+	<p>是否开启自动轮播：<b>auto:false（默认不开启）</b>开启（true）此功能。<b>data-carousel-intervaltime="2000"</b>当前轮播图，轮播间隔时间（默认1秒）。</p>
+	<p>loading.gif：<b>loading:'./css/i/loading.gif'（默认路径和图片名）</b>。</p>
+	<p>轮播图对应TITLE：在DOM结构中加入元素即自动开启。<span>注意对应轮播个数，否者会出错</span>。</p>
+	<b><pre>
+		-ul class="ed-text">
+			li>原创作品：我是歌手第二季官方网站-/li>
+			li>原创作品：[摄影] 一杯茶,取悦自己-/li>
+			li>原创作品：妳的天空 他的楼-/li>
+		-/ul>
+	</pre></b>
+
+	<div class="ed-box">
+		<div class="ed-carousel" data-carousel-intervaltime="2000">
+			<ul class="ed-carousel-ul">
+				<li>
+					<a href="#"><img src="images/1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/3.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/4.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/5.jpg" alt="" /></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="ed-box">
+		<div class="ed-carousel" data-carousel-page="in" data-carousel-tab="in">
+			<ul class="ed-carousel-ul">
+				<li>
+					<a href="#"><img src="images/1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/3.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/4.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/5.jpg" alt="" /></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="ed-box">
+		<div class="ed-carousel" data-carousel-page="out" data-carousel-tab="bottom">
+			<ul class="ed-carousel-ul">
+				<li>
+					<a href="#"><img src="images/1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/3.jpg" alt="" /></a>
+				</li>
+			</ul>
+		</div>
+		<ul class="ed-text">
+			<li>原创作品：我是歌手第二季官方网站</li>
+			<li>原创作品：[摄影] 一杯茶,取悦自己</li>
+			<li>原创作品：妳的天空 他的楼</li>
+		</ul>
+	</div>
+	<div class="ed-box">
+		<div data-carousel="ed-carousel" data-carousel-tab="bottom" data-carousel-page="out">
+			<ul class="ed-carousel-ul">
+				<li>
+					<a href="#"><img src="images/1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="#"><img src="images/2.jpg" alt="" /></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			/*new Carousel({
+				imgcache:true,
+				page:true,
+				tab:true,
+				auto:true
+			});*/
+
+			$('body').carousel({
+				imgcache:true,
+				page:true,
+				tab:true,
+				auto:true
+			});
+		});
+	</script>
+</body>
+</html>

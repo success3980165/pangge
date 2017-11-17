@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>altKey，ctrlKey，metaKey，shiftKey</title>
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<style>
+		#div{
+			width:100px;
+			height:100px;
+			background:#694114;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<p>点击键盘加+CTRL、ALT、SHIFT等 组合键</p>
+	<script>
+		$(function() {
+			$('#div').click(showkey);
+			$(document).on('keypress',showChar);
+		});
+		function showkey(e){
+			console.log("ALT key pressed: " + e.altKey);
+			console.log("CTRL key pressed: " + e.ctrlKey);
+			console.log("META key pressed: " + e.metaKey);
+			console.log("META key pressed: " + e.shiftKey);
+		}
+		function showChar(e){
+			console.log(e.charCode);
+			console.log("ALT: " + e.altKey);
+			console.log("CTRL: " + e.ctrlKey);
+			console.log("Meta: " + e.metaKey);
+			console.log("Meta: " + e.shiftKey);
+		}
+
+		/*
+			keydown：按下键盘时触发该事件。
+			keypress：只要按下的键并非Ctrl、Alt、Shift和Meta，就接着触发keypress事件。
+			keyup：松开键盘时触发该事件。
+		*/
+	</script>
+	<div id="div">点我</div>
+</body>
+</html>

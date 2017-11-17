@@ -1,0 +1,147 @@
+/*------------------ edward v1.0 for mobile 2014/09/24 ------------------*/
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+*,body,h1,h2,h3,h4,h5,h6,ol,ul,dl,li,dt,dd,i,em,b,p,div,span,img,table,th,tr,td,input,label,select,textarea {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+}
+body {
+	font:12px/1.5 arial, tahoma, Verdana, simsun;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;  /* 表格边框独立时，行和单元格的边框在横向和纵向上的间距 */
+}
+ol,ul,dl,li,dt,dd {
+	list-style: none;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-family: Microsoft YaHei , simhei;
+}
+img {
+	vertical-align: top; /* middle  text-top/bottom */
+	border: 0 none;
+}
+i,em {
+	font-style: normal;
+}
+p {
+	color: #666;
+	word-wrap: break-word; /*它会自动把整个单词放到下一行*/
+}
+a {
+	blr:expression(this.onFocus=this.blur());
+}
+a,img {
+	huerreson:expression(onfocus=function(){this.blur()});
+}
+a,a:link {                      /* 未访问的链接 */
+	color: #333;
+	text-decoration: none;
+}
+a:visited {                   /* 已访问的链接 */
+
+}
+a:focus {                    /* 获得焦点 */
+	outline: 0 none;
+}
+a:active {
+	outline: none; star:expression(this.onFocus=this.blur());
+}
+a:active, a:hover {            /* 选定的链接 鼠标移动到链接上 */
+	text-decoration: /*underline*/none;
+	color: #ff1a17;
+}
+.hidden {
+	overflow: hidden;/*visibility: hidden;*/
+}
+.arial {
+	font-family: arial;
+}
+.tahoma {
+	font-family: tahoma;
+}
+.Verdana {
+	font-family: Verdana;
+}
+.yahei {
+	font-family: Microsoft YaHei , simhei;
+}
+.simsun {
+	font-family: simsun;
+}
+.simhei{
+	font-family: simhei;
+}
+.pointer{
+	cursor: pointer;
+}
+.relative {
+	position: relative;
+}
+.float-left {
+	float: left!important;
+}
+.float-right {
+	float: right!important;
+}
+.clearfix:after {
+	content: "\200B";
+	display: block;
+	height: 0;
+	clear: both;
+}
+.clearfix {
+	*zoom: 1;
+}
+.cf:before,.cf:after {
+	content: "";
+	display: table;
+}
+.cf:after {
+	clear: both;
+}
+.cf {
+	zoom: 1;
+}
+.shadow {
+	-moz-box-shadow:1px 1px 1px #dfdfdf;
+	-webkit-box-shadow:1px 1px 1px #dfdfdf;
+	box-shadow:1px 1px 1px #dfdfdf;
+	/* For IE 8 */
+	-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, color='#dfdfdf')";
+	/* For IE 5.5 - 7 */
+	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, color='#dfdfdf');
+}
+/*------------------ style ------------------*/
+.black {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter:alpha(opacity=50);
+	z-index: 1;
+}
+.xia {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	border: 1px solid #ddd;
+	background: #333;
+	z-index: 2;
+}
+.yu {
+	position: absolute;
+	width: 100px;
+	height: 50px;
+	border: 1px solid #ddd;
+	background: #999;
+	z-index: 3;
+}

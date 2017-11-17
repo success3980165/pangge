@@ -1,0 +1,213 @@
+/*------------------ edward v1.1 for mobile 2015/06/17 ------------------*/
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+html {
+	line-height: 1;
+}
+html,body{
+	font:12px/1.5 arial, tahoma, Verdana, simsun;
+	height: 100%;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;  /* 表格边框独立时，行和单元格的边框在横向和纵向上的间距 */
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle;
+}
+q, blockquote {
+	quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+	content: "";
+	content: none;
+}
+ol, ul {
+	list-style: none;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-family: Microsoft YaHei , simhei;
+}
+img,input {
+	vertical-align: middle; /* baseline/top/text-top/bottom */
+}
+a img {
+	border: none;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+	display: block;
+}
+i,em {
+	font-style: normal;
+}
+p {
+	color: #666;
+	word-wrap: break-word; /*它会自动把整个单词放到下一行*/
+}
+a,a:link {                      /* 未访问的链接 */
+	color: #333;
+	text-decoration: none;
+}
+a:visited {                   /* 已访问的链接 */
+
+}
+a:focus {                    /* 获得焦点 */
+	outline: 0 none;
+}
+a:active {
+	outline: none;
+}
+a:active, a:hover {            /* 选定的链接 鼠标移动到链接上 */
+	text-decoration: none;		/*underline*/
+	color: #ff1a17;
+}
+.hidden {
+	overflow: hidden;/*visibility: hidden;*/
+}
+.arial {
+	font-family: arial;
+}
+.tahoma {
+	font-family: tahoma;
+}
+.Verdana {
+	font-family: Verdana;
+}
+.yahei {
+	font-family: Microsoft YaHei , simhei;
+}
+.simsun {
+	font-family: simsun;
+}
+.simhei{
+	font-family: simhei;
+}
+.pointer{
+	cursor: pointer;
+}
+.relative {
+	position: relative;
+}
+.float-left {
+	float: left!important;
+}
+.float-right {
+	float: right!important;
+}
+.clearfix:after {
+	content: "\200B";
+	display: block;
+	height: 0;
+	clear: both;
+}
+.clearfix {
+	*zoom: 1;
+}
+.cf:before,.cf:after {
+	content: "";
+	display: table;
+}
+.cf:after {
+	clear: both;
+}
+.cf {
+	zoom: 1;
+}
+/*------------------ style ------------------*/
+b{
+	color: orange;
+}
+p{
+	font:bold 14px/1.5 Microsoft YaHei , simhei;
+	padding: 15px 30px 0;
+}
+span {
+	color: red;
+}
+/**/
+circle {
+	-webkit-transition: stroke-dasharray 1.25s;
+	transition: stroke-dasharray 1.25s;
+}
+.ed-circleloading, [data-circleloading=ed-circleloading]{
+	position: relative;
+	width: 200px;
+	height: 200px;
+	margin:30px;
+}
+.ed-circleloading>svg, [data-circleloading=ed-circleloading]>svg {
+	width: 100%;
+	height: 100%;
+}
+.ed-circleloading-bg {
+	cx:100px;
+	cy:100px;
+	r:80px;
+	/* stroke-width:25px;
+	stroke:#ccc; */
+	fill:none;
+}
+.ed-circleloading-tg {
+	cx:100px;
+	cy:100px;
+	r:80px;
+	/* stroke-width:25px;
+	stroke:#36c;
+	stroke-linecap:round;
+	stroke-linejoin:inherit;
+	stroke-opacity:1;
+	stroke-miterlimit:99; */
+	fill:none;
+	-webkit-transform: matrix(0,-1,1,0,0,200);
+	-ms-transform: matrix(0,-1,1,0,0,200);
+	-o-transform: matrix(0,-1,1,0,0,200);
+	transform: matrix(0,-1,1,0,0,200);
+}
+.ed-circleloading-text {
+	position: absolute;
+	text-align: center;
+	overflow: hidden;
+	/*font-family: arial;*/
+	z-index: 2;
+	-webkit-text-shadow: 2px 2px 4px #666;
+	-moz-text-shadow: 2px 2px 4px #666;
+	-ms-text-shadow: 2px 2px 4px #666;
+	-o-text-shadow: 2px 2px 4px #666;
+	text-shadow: 2px 2px 4px #666;
+}
+.ed-circleloading-img {
+	position: absolute;
+	border-radius: 50%;
+	overflow: hidden;
+	z-index: 1;
+}
+/**/
+.ed-circleloading-range{
+	width: 100px;
+}
+.ed-circleloading-number,.ed-circleloading-range{
+	position: absolute;
+	width: 50px;
+}
+.opts {
+	width: 300px;
+	height: 300px;
+}
+.bbb {
+	width: 100px;
+	right: 0;
+	bottom: 0;
+}

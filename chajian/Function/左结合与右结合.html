@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>左结合与右结合</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<style>
+		body{
+			background:#222;
+			color:#fff;
+		}
+		span {
+			font:22px/1.5 Verdana;
+		}
+		.letterspacing{
+			letter-spacing:4px;
+		}
+		.col-1{color:#A6E22E;}
+		.col-2{color:#F92662;}
+		.col-3{color:#fff; font-size:20px;}
+	</style>
+</head>
+<body>
+	<h2>左结合</h2>
+	<p>对于优先级别相同的运算符，大多数情况，计算顺序总是从左到右，这叫做运算符的“左结合”（left-to-right associativity），即从左边开始计算。</p>
+	<p class="letterspacing"><span class="col-1">x</span><span class="col-2">+</span><span class="col-1">y</span><span class="col-2">+</span><span class="col-1">z</span><span class="col-3">;</span></p>
+	<p>上面代码先计算最左边的x与y的和，然后再计算与z的和。</p>
+	<hr>
+	<h2>右结合</h2>
+	<p>但是少数运算符的计算顺序是从右到左，即从右边开始计算，这叫做运算符的“右结合”（right-to-left associativity）。其中，最主要的是赋值运算符（=）和三元条件运算符（?:）。</p>
+	<p class="letterspacing"><span class="col-1">w</span><span class="col-2">=</span><span class="col-1">x</span><span class="col-2">=</span><span class="col-1">y</span><span class="col-2">=</span><span class="col-1">z</span><span class="col-3">;</span></p>
+	<p class="letterspacing"><span class="col-1">q</span><span class="col-2">=</span><span class="col-1">a</span><span class="col-2">?</span><span class="col-1">b</span><span class="col-2">:</span><span class="col-1">c</span><span class="col-2">?</span><span class="col-1">d</span><span class="col-2">:</span><span class="col-1">e</span><span class="col-2">?</span><span class="col-1">f</span><span class="col-2">:</span><span class="col-1">g</span><span class="col-3">;</span></p>
+	<p>上面代码的运算结果，相当于下面的样子。</p>
+	<p class="letterspacing"><span class="col-1">w</span><span class="col-2">=(</span><span class="col-1">x</span><span class="col-2">=(</span><span class="col-1">y</span><span class="col-2">=</span><span class="col-1">z</span><span class="col-2">))</span><span class="col-3">;</span></p>
+	<p class="letterspacing"><span class="col-1">q</span><span class="col-2">=</span><span class="col-1">a</span><span class="col-2">?</span><span class="col-1">b</span><span class="col-2">:(</span><span class="col-1">c</span><span class="col-2">?</span><span class="col-1">d</span><span class="col-2">:(</span><span class="col-1">e</span><span class="col-2">?</span><span class="col-1">f</span><span class="col-2">:</span><span class="col-1">g</span><span class="col-2">))</span><span class="col-3">;</span></p>
+</body>
+	<script>
+		$(function() {
+			var
+			a =  30,
+			b =   30,
+			c = a === b;
+			console.log(c);
+		});
+	</script>
+</html>

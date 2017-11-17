@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态加载JS</title>
+</head>
+<body>
+	<h2>动态加载JS</h2>
+	<p>
+		You should see an alert saying &quot;hi&quot; after clicking the button.
+	</p>
+	<input type="button" value="loadScriptString" onclick="addScript()">
+	<input type="button" value="load Script" onclick="loadScript('http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js')">
+
+	<script type="text/javascript">
+
+		//动态加载外部JS
+		function loadScript(url){
+			var script = document.createElement("script");
+			script.type = "text/javascript";
+			script.src = url;
+			document.body.appendChild(script);
+		}
+
+		//动态加载JS字符串
+		function loadScriptString(code){
+			var script = document.createElement("script");
+			script.type = "text/javascript";
+			try {
+				script.appendChild(document.createTextNode(code));
+			} catch (ex){
+				script.text = code;
+			}
+			document.body.appendChild(script);
+		}
+
+		function addScript(){
+			loadScriptString("function sayHi(){alert('hi');}");
+			sayHi();
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>高级数组</title>
+</head>
+<body>
+	<h2>高级数组</h2>
+	<div>1</div><div>2</div><div>3</div>
+	<script>
+		/*
+		 * slice方法返回指定位置的数组成员组成的新数组，原数组不变。
+		 * 它的第一个参数为起始位置（从0开始），第二个参数为终止位置（但该位置的元素本身不包括在内）。
+		 * 如果省略第二个参数，则一直返回到原数组的最后一个成员。
+		 */
+
+		//slice方法的一个重要应用，是将类似数组的"对象"转为真正的数组。
+		function angs(){
+			console.log(arguments);
+			var args = Array.prototype.slice.call(arguments);
+			console.log(args);  // ["xia", "yu", "ting"]
+		}
+		angs('xia','yu','ting');
+		console.log(Array.prototype.slice.call({ 0: 'a', 1: 'b', length: 2 }));  // ["a", "b"]
+		console.log(Array.prototype.slice.call(document.querySelectorAll("div")));  //[div, div, div]
+
+
+		/*
+		 * join 方法以参数作为分隔符，将所有数组成员组成一个字符串返回。如果不提供参数，默认用逗号分隔。
+		 */
+
+		//join 方法以参数作为分隔符，将所有数组成员组成一个字符串返回。如果不提供参数，默认用逗号分隔。
+		//通过函数的call方法，join方法（即Array.prototype.join）也可以用于字符串。
+		console.log(["h", "e", "l", "l", "o"].join('-')); // "h-e-l-l-o"
+		console.log(Array.prototype.join.call('hello', '-'));  // "h-e-l-l-o"
+		console.log("h-e-l-l-o".split("-")); //["h", "e", "l", "l", "o"]
+
+
+		/*
+		 * push 方法用于在数组的末端添加一个或多个元素，并返回添加后的数组的长度。
+		 */
+
+		var a = { a: 1 };
+		//向对象添加元素，添加后的对象变成“类似数组的”对象,即新加入元素的键对应数组的索引，并且对象有一个length属性。
+		[].push.call(a, 2);
+		[].push.call(a, [3]);
+		console.log(a);  // Object {0: 2, 1: Array[1], a: 1, length: 2}
+
+
+		/*
+		 * map方法不仅可以用于数组，还可以用于字符串，用来遍历字符串的每个字符。
+		 */
+		var upper = function (x) { return x.toUpperCase() };
+		var arrMap = [].map.call('abc', upper);
+		console.log(arrMap);
+
+
+		/**
+		 * MAP用法
+		 */
+		var numbers = ['1', '-2', '3' ,10];
+
+		var arrNumber = numbers.map(function(n) {
+			return parseInt(n);
+		});
+
+		console.log(arrNumber);
+	</script>
+</body>
+</html>

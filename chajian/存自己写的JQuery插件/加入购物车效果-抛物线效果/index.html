@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>抛物线运动效果</title>
+    <style type="text/css">
+        .boll {
+            width: 50px;
+            height: 50px;
+            background-color: #ff3333;
+            position: absolute;
+            top: 380px;
+            left: 100px;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            border-radius: 50px;
+        }
+
+        .target {
+            width: 50px;
+            height: 50px;
+            background-color: #CDCDCD;
+            position: absolute;
+            top: 180px;
+            left: 600px;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            border-radius: 50px;
+        }
+    </style>
+    <script type="text/javascript" src="http://www.css88.com/jqapi-1.9/js/jquery.min.js"></script>
+    <script type="text/javascript" src="parabola.js"></script>
+</head>
+
+<body>
+<div class="btns" style="margin-top:20px">
+    <p >回到JavaScript实现的抛物线运动效果</p>
+</div>
+    <div class="btns" style="margin-top:20px">
+    <a href="#" class="btnA btn-danger" id="reset" rel="popover" title="A Title" style="">reset</a>
+    <a href="#" class="btnA btn-danger" id="run" rel="popover" title="A Title" style="">run</a>
+    <a href="#" class="btnA btn-danger" id="stop" rel="popover" title="A Title" style="">stop</a>
+    <a href="#" class="btnA btn-danger" id="setOptions" rel="popover" title="A Title" style="">setOptions</a>
+</div>
+<div id="boll" class="boll"></div>
+<div id="target" class="target"></div>
+<script type="text/javascript">
+    var bool = new Parabola({
+        el: "#boll",
+        offset: [500, 100],
+        curvature: 0.005,
+        duration: 3000,
+        callback:function(){
+            alert("完成后回调")
+        },
+        stepCallback:function(x,y){
+            console.log(x,y);
+            $("<div>").appendTo("body").css({
+                "position": "absolute",
+                "top": this.elOriginalTop + y,
+                "left":this.elOriginalLeft + x,
+                "background-color":"#CDCDCD",
+                "width":"5px",
+                "height":"5px",
+                "border-radius": "5px"
+            });
+        }
+    });
+    $("#reset").click(function (event) {
+        event.preventDefault();
+        bool.reset()
+    });
+    $("#run").click(function (event) {
+        event.preventDefault();
+        bool.start();
+    });
+    $("#stop").click(function (event) {
+        event.preventDefault();
+        bool.stop();
+    });
+    $("#setOptions").click(function (event) {
+        event.preventDefault();
+        bool.setOptions({
+            targetEl: $("#target"),
+            curvature: 0.001,
+            duration: 1000
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分割URL字符串后的&值</title>
+</head>
+<body>
+	<h2>分割URL字符串后的&值</h2>
+	<script type="text/javascript">
+
+		function getQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+			// escape(),encodeURI(),encodeURIComponent()----unescape(),decodeURI(),decodeURIComponent() URL编码
+			var r =location.search.substr(1).match(reg);
+			if (r != null) return decodeURIComponent(r[2]); return null;
+		}
+
+		function getQueryStringArgs(){
+
+			//get query string without the initial ?    返回URL的查询字符串，这个字符串是？开头
+			var qs = (location.search.length > 0 ? location.search.substring(1) : ""),
+
+			//object to hold data  要保存的数据对象
+			args = {},
+
+			//get individual items  根据& 分割生成数组
+			items = qs.length ? qs.split("&") : [],
+			item = null,
+			name = null,
+			value = null,
+
+			//used in for loop  循环中使用
+			i = 0,
+			len = items.length;
+
+			//assign each item onto the args object  分配到 args 对象的每个项
+			for (i=0; i < len; i++){
+				item = items[i].split("=");
+				name = decodeURIComponent(item[0]);
+				value = decodeURIComponent(item[1]);
+
+				if (name.length){
+					args[name] = value;
+				}
+			}
+
+			return args;
+		}
+
+		//assume query string of ?age=10&name=javascript
+
+		var args = getQueryStringArgs();
+
+		console.log(args["age"]);   //"10"
+		console.log(args["name"]);   //"javascript"
+		console.log(getQueryString("age"));   //"10"
+		console.log(getQueryString("name"));   //"javascript"
+	</script>
+</body>
+</html>

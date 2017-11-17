@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Function Binding</title>
+	<script type="text/javascript" src="js/EventUtil.js"></script>
+</head>
+<body>
+	<h2>函数绑定</h2>
+	<p>在bind()中创建了一个闭包，闭包使用apply()调用传入的函数，并给apply()传递context对象的参数。</p>
+	<p>注意这里的arguments对象是内部函数的，而非bind()的。</p>
+	<p>当调用返回的函数时，它会在给定环境中执行被传入的函数并给出所有参数。</p>
+	<input type="button" id="my-btn1" value="返回了未定义" />
+	<input type="button" id="my-btn2" value="Click Me" />
+	<p>ECMAScript5为所有函数定义了一个原生的bind()方法，进一步简单了操作，换句话说，你不用再增加定义bind()函数了，而可以直接在函数上使用这个方法。</p>
+	<input type="button" id="my-btn3" value="Click Me" />
+	<script type="text/javascript">
+		function bind(fn, context){
+			return function(){
+				return fn.apply(context, arguments);
+			};
+		}
+
+		var handler = {
+			message: "夏宇霆",
+			handleClick: function(event){
+				alert(this.message + " : " + event.type);
+			}
+		};
+
+		var btn1 = document.getElementById("my-btn1");
+		var btn2 = document.getElementById("my-btn2");
+		var btn3 = document.getElementById("my-btn3");
+		EventUtil.addHandler(btn1, "click", handler.handleClick);
+		EventUtil.addHandler(btn2, "click", bind(handler.handleClick, handler));
+		EventUtil.addHandler(btn3, "click", handler.handleClick.bind(handler));
+	</script>
+	<p>jQuery.proxy( function, context )<a href="http://www.css88.com/jqapi-1.9/jQuery.proxy/">查看</a></p>
+	<p>$.proxy接受一个函数，然后返回一个新函数，并且这个新函数始终保持了特定的上下文语境。</p>
+</body>
+</html>

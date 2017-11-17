@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form Serialization</title>
+    <script type="text/javascript" src="js/EventUtil.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <h2>表单序列化</h2>
+    <form method="post" action="javascript:;" id="myForm">
+        <ul>
+            <li>
+                <input type="radio" name="color" value="red">Red
+            </li>
+            <li>
+                <input type="radio" name="color" value="green">Green
+            </li>
+            <li>
+                <input type="radio" name="color" value="blue">Blue
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <input type="checkbox" name="age" value="29">29
+            </li>
+            <li>
+                <input type="checkbox" name="age" value="30">30
+            </li>
+            <li>
+                <input type="checkbox" name="age" value="31">31
+            </li>
+            <li>
+                <input type="checkbox" name="age" value="32">32
+            </li>
+        </ul>
+        <fieldset>
+            <legend>Locations</legend>
+            <div>
+                <label for="selLocation1">Where do you want to live?</label>
+                <select name="location1" id="selLocation">
+                    <option value="Sunnyvale, CA">Sunnyvale</option>
+                    <option value="Los Angeles, CA">Los Angeles</option>
+                    <option value="Mountain View, CA">Mountain View</option>
+                    <option value="China">China</option>
+                    <option>Australia</option>
+                </select>
+            </div>
+            <div>
+                <label for="selLocation2">Where do you want to work?</label>
+                <!-- <select name="location2" id="selLocation2" multiple size="5"> -->
+                <select name="location2" id="selLocation2">
+                    <option value="Sunnyvale, CA">Sunnyvale</option>
+                    <option value="Los Angeles, CA">Los Angeles</option>
+                    <option value="Mountain View, CA">Mountain View</option>
+                    <option value="China">China</option>
+                    <option>Australia</option>
+                </select>
+            </div>
+        </fieldset>
+        <div>
+            <label for="comments">Any other comments?</label>
+            <br>
+            <textarea rows="10" cols="50" id="comments" name="comments"></textarea>
+        </div>
+        <input type="button" value="Serialize Form" id="serialize-btn">
+    </form>
+    <script type="text/javascript">
+    function serialize(form) {
+        var parts = [],
+            field = null,
+            i, len, j, optLen, option, optValue;
+
+        for (i = 0, len = form.elements.length; i < len; i++) {
+            field = form.elements[i];
+
+            switch (field.type) {
+                case "select-one":
+                case "select-multiple":
+
+                    if (field.name.length) {
+                        for (j = 0, optLen = field.options.length; j < optLen; j++) {
+                            option = field.options[j];
+                            if (option.selected) {
+                                optValue = "";
+                                if (option.hasAttribute) {
+                                    optValue = (option.hasAttribute("value") ? option.value : option.text);
+                                } else {
+                                    optValue = (option.attributes["value"].specified ? option.value : option.text);
+                                }
+                                parts.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(optValue));
+                            }
+                        }
+                    }
+                    break;
+
+                case undefined: //fieldset  字符集
+                case "file": //file input  文件输入
+                case "submit": //submit button  提交按钮
+                case "reset": //reset button  重置按钮
+                case "button": //custom button  自定义按钮
+                    break;
+
+                case "radio": //radio button  单选按钮
+                case "checkbox": //checkbox  复选按钮
+                    if (!field.checked) {
+                        break;
+                    }
+                    // falls through
+
+                default:
+                    //don't include form fields without names
+                    if (field.name.length) {
+                        parts.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+                    }
+            }
+        }
+        return parts.join("&");
+    }
+
+    var btn = document.getElementById("serialize-btn");
+    EventUtil.addHandler(btn, "click", function(event) {
+        var form = document.forms[0];
+        console.log(serialize(form));
+    });
+    /*$(function() {
+    	$('#serialize-btn').click(function(event) {
+    		console.log($('#myForm').serialize());
+    	});
+    });*/
+    </script>
+</body>
+
+</html>

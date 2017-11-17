@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计时器原理</title>
+</head>
+<body>
+	<h3>计时器原理</h3>
+	<p>倒计时功能离不开setTimeout或setInterval这两个函数，要用好这两个函数必先了解好Javascript解释器的工作原理，前端界大牛John.Resig (jQuery作者) 有篇文章很好讲解了Javascript解释器工作原理 — 《How JavaScript Timers Work》。</p>
+	<p>前端开发同学都知道，javascript是单线程的(web worker除外），更好理解的解释是javascript解释器是单线程工作，它不能在处理一个ajax的callback的同时去处理click event的callback，而是必须按照先后队列顺序执行。</p>
+	<img src="http://www.xuanfengge.com/wp-content/uploads/2015/03/1425041883_52_w1024_h768.png" alt="">
+	<p>由于实际项目中，执行计时器的同时，会有很多其他异步阻塞事件，会导致倒计时功能不精确。</p>
+	<h3>解决思路</h3>
+	<p>这里先分析一下从获取服务器时间到前端显示倒计时的过程：</p>
+	<ol>
+		<li>客户端http请求服务器时间；</li>
+		<li>服务器响应完成；</li>
+		<li>服务器通过网络传输时间数据到客户端；</li>
+		<li> 客户端根据活动开始时间和服务器时间差做倒计时显示；</li>
+	</ol>
+	<p>服务器响应完成的时间其实就是服务器时间，但经过网络传输这一步，就会产生误差了，误差大小视网络环境而异，这部分时间前端也没有什么好办法计算出来，一般是几十ms以内，大的可能有几百ms。</p>
+	<p>可以得出：当前服务器时间 = 服务器系统返回时间 + 网络传输时间 + 前端渲染时间 + 常量（可选），这里重点是说要考虑前端渲染的时间，避免不同浏览器渲染快慢差异造成明显的时间不同步，这是第一点。（网络传输时间忽略或加个常量呗）</p>
+	<p>获得服务器时间后，前端进入倒计时计算和计时器显示，这步就要考虑js代码冻结和线程阻塞造成计时器延时问题了，我的思路是通过引入计数器，判断计时器延迟执行的时间来调整，尽量让误差缩小，不同浏览器不同时间段打开页面倒计时误差可控制在1s以内。</p>
+	<script>
+		/**
+		 * 测试1
+		 * 目测代码就知道运行结果，定时器每秒执行一次，每次输出应该是0.
+		 * 结论：由于代码执行占用时间和其他事件阻塞原因，导致有些事件执行延迟了几ms，但影响很微。
+		 */
+		/*var start = new Date().getTime();
+		var count = 0;
+
+		//定时器测试
+		setInterval(function() {
+			count++;
+			console.log(new Date().getTime() - (start + count * 1000));
+		}, 1000);*/
+	</script>
+	<script>
+		/**
+		 * 测试2
+		 * 由于实际项目中，执行计时器的同时，会有很多其他异步阻塞事件，会导致倒计时功能不精确。
+		 * 结论：由于加了很占线程的阻塞事件，导致定时器事件每次执行延迟越来越严重。
+		 */
+		/*var start = new Date().getTime();
+		var count = 0;
+
+		//占用线程事件
+		setInterval(function() {
+			var j = 0;
+			while (j++ < 100000000);
+		}, 0);
+
+		//定时器测试
+		setInterval(function() {
+			count++;
+			console.log(new Date().getTime() - (start + count * 1000));
+		}, 1000);*/
+	</script>
+	<script>
+		//继续线程占用
+		setInterval(function() {
+			var j = 0;
+			while (j++ < 100000000);
+		}, 0);
+
+		//倒计时
+		var interval = 1000,
+			ms = 10000, //倒计时总秒
+			count = 0,
+			startTime = new Date().getTime();
+		if (ms >= 0) {
+			var timeCounter = setTimeout(countDownStart, interval);
+		}
+
+		function countDownStart() {
+			count++;
+
+			//误差时间
+			var offset = new Date().getTime() - (startTime + count * interval);
+			//用1秒-误差时间 = 距离下一秒的时间
+			var nextTime = interval - offset;
+			var daytohour = 0;
+			if (nextTime < 0) {
+				nextTime = 0
+			};
+
+			//50秒-1秒
+			ms -= interval;
+			console.log("误差：" + offset + "ms，下一次执行：" + nextTime + "ms后，离活动开始还有：" + ms + "ms");
+			if (ms < 0) {
+				clearTimeout(timeCounter);
+			} else {
+				//递归调用
+				timeCounter = setTimeout(countDownStart, nextTime);  //nextTime 例：902ms
+			}
+		}
+
+		/**
+		 * 总结
+		 * 做100%精确的倒计时很难，但做到相对比较准确是可以的。
+		 * 在倒计时功能开发中，有几点总结：
+		 * 1. 要了解好js单线程工作原理；
+		 * 2. 清楚了解服务器系统时间传送到前端的流程；
+		 * 3. 了解前端渲染和线程阻塞造成的时间误差；
+		 */
+	</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>检测弹出窗口是否屏蔽</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var blocked = false;
+
+		try {
+			var wroxWin = window.open("http://www.wrox.com", "_blank");
+			if (wroxWin == null){
+				blocked = true;
+			}
+		} catch (ex){
+			blocked = true;
+		}
+
+		if (blocked){
+			alert("The popup was blocked!弹出窗口被阻止 ！");
+		}
+	</script>
+	<p>This page tries to open a window as the page is loading. It should be blocked.</p>
+	<p>此页尝试打开一个窗口，在加载页。它应该被阻止。</p>
+</body>
+</html>

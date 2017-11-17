@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>javascript中静态方法、实例方法、内部方法和原型的一点见解</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.1.0.min.js"></script>
+	<script src="js/jquery.snippet.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css" />
+	<style>
+	body {
+		color: #fff;
+		background: url(css/i/bg.gif) repeat 0 0 #333;
+		padding: 25px 180px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:16px;
+		font-weight:bold;
+	}
+	</style>
+</head>
+<body>
+	<p>1、静态方法的定义</p>
+	<p>在Object上的方法</p>
+	<p>var o = { p: 'a' };</p>
+	<p>Object.getOwnPropertyDescriptor(o, 'p');</p>
+	<pre class="js">
+var BaseClass = function() {}; // var BaseClass=new Function();
+BaseClass.f1 = function() { //定义静态方法
+	alert(' This is a static method ');
+}
+BaseClass.f1(); //This is a static method
+var instance1 = new BaseClass();
+instance1.f1(); //instance1.f1 is not a function
+/**
+ * 由以上代码分析可知，静态方法不能被实例对象调用，再看以下代码
+ */
+	</pre>
+	<pre class="js">
+var BaseClass = new Function;
+var Class2 = BaseClass;
+BaseClass.f1 = function() {
+	alert("BaseClass ' s static method");
+}
+Class2.f2 = function() {
+	alert("Class2 ' s static method");
+};
+
+BaseClass.f1(); //BaseClass ' s static method
+BaseClass.f2(); //Class2 ' s static method
+Class2.f1(); //BaseClass ' s static method
+Class2.f2(); //Class2 ' s static method
+/**
+ * 从运行结果来看，BaseClass和Class都有f1和f2静态方法，实际上这两个函数是一样的，可以执行以下代码来验证
+ * 如果删除其中一个函数中的静态方法，则对应的另一个函数的静态方法也被删除，比如执行
+ * delete Class2.f2;
+ * 同时也会删除BaseClass中的f2
+ * 其实两个对象指向内存的一个地址
+ */
+	</pre>
+	<script>
+		/*var BaseClass = function() {}; // var BaseClass=new Function();
+		BaseClass.f1 = function() { //定义静态方法
+			alert(' This is a static method ');
+		}
+		BaseClass.f1(); //This is a static method
+		var instance1 = new BaseClass();
+		instance1.f1(); //instance1.f1 is not a function*/
+		/**
+		 * 由以上代码分析可知，静态方法不能被实例对象调用，再看以下代码
+		 */
+
+
+		/*var BaseClass = new Function;
+		BaseClass.f1 = function() {
+			alert("BaseClass ' s static method");
+		}
+		Class2.f2 = function() {
+			alert("Class2 ' s static method");
+		}
+
+		var Class2 = BaseClass;
+
+		BaseClass.f1(); //BaseClass ' s static method
+		BaseClass.f2(); //Class2 ' s static method
+		Class2.f1(); //BaseClass ' s static method
+		Class2.f2(); //Class2 ' s static method*/
+		/**
+		 * 从运行结果来看，BaseClass和Class都有f1和f2静态方法，实际上这两个函数是一样的，可以执行以下代码来验证
+		 * 如果删除其中一个函数中的静态方法，则对应的另一个函数的静态方法也被删除，比如执行
+		 * delete Class2.f2;
+		 * 同时也会删除BaseClass中的f2
+		 */
+	</script>
+	<p>2、实例方法的定义</p>
+	<p>Object.prototype上写的方法</p>
+	<p>var o = { p: 'a' };</p>
+	<p>o.valueOf() === o // true</p>
+	<pre class="js">
+//这里是利用javascript对象原型引用prototype来实现的，看以下代码
+var BaseClass = function() {};
+BaseClass.prototype.method1 = function() {
+	alert(' This is a instance method ');
+}
+var instance1 = new BaseClass();
+instance1.method1(); //This is a instance method
+	</pre>
+	<pre class="js">
+//method1即为通过prototype原型引用定义的实例方法，这里也可以在实例上直接定义方法（变量），看以下代码
+var BaseClass = function() {};
+var instance1 = new BaseClass();
+instance1.method1 = function() {
+	alert(' This is a instance method too ');
+}
+instance1.method1(); //This is a instance method too
+	</pre>
+	<pre class="js">
+//下面介绍通过this指针来定义实例方法（变量），看以下代码
+var BaseClass = function() {
+	this.method1 = function() {
+		alert(' Defined by the "this" instance method');
+	}
+};
+var instance1 = new BaseClass();
+instance1.method1(); //Defined by the "this" instance method
+	</pre>
+<pre class="js">
+//那么同时在实例上、原型引用上和“this”上定义了相同名字的实例方法后，实例会优先调用那一个呢？请看以下代码
+var BaseClass = function() {
+	this.method1 = function() {
+		alert(' Defined by the "this" in the instance method');
+	}
+};
+var instance1 = new BaseClass();
+instance1.method1 = function() {
+	alert(' Defined directly in the instance method');
+}
+BaseClass.prototype.method1 = function() {
+	alert(' Defined by the prototype instance method ');
+}
+instance1.method1(); //Defined directly in the instance method
+//通过运行结果跟踪测试可以看出直接定义在实例上的变量的优先级要高于定义在“this”上的。
+//而定义在“this”上的又高于 prototype定义的变量。
+***即直接定义在实例上的变量会覆盖定义在“this”上和prototype定义的变量。定义在“this”上的会覆盖prototype定义的变量。
+</pre>
+	<script>
+		//这里是利用javascript对象原型引用prototype来实现的，看以下代码
+		/*var BaseClass = function() {};
+		BaseClass.prototype.method1 = function() {
+			alert(' This is a instance method ');
+		}
+		var instance1 = new BaseClass();
+		instance1.method1(); //This is a instance method*/
+
+
+		//method1即为通过prototype原型引用定义的实例方法，这里也可以在实例上直接定义方法（变量），看以下代码
+		/*var BaseClass = function() {};
+		var instance1 = new BaseClass();
+		instance1.method1 = function() {
+			alert(' This is a instance method too ');
+		}
+		instance1.method1(); //This is a instance method too*/
+
+
+		//下面介绍通过this指针来定义实例方法（变量），看以下代码
+		/*var BaseClass = function() {
+			this.method1 = function() {
+				alert(' Defined by the "this" instance method');
+			}
+		};
+		var instance1 = new BaseClass();
+		instance1.method1(); //Defined by the "this" instance method*/
+
+
+		//那么同时在实例上、原型引用上和“this”上定义了相同名字的实例方法后，实例会优先调用那一个呢？请看以下代码
+		/*var BaseClass = function() {
+			this.method1 = function() {
+				alert(' Defined by the "this" in the instance method');
+			}
+		};
+		var instance1 = new BaseClass();
+		instance1.method1 = function() {
+			alert(' Defined directly in the instance method');
+		}
+		BaseClass.prototype.method1 = function() {
+			alert(' Defined by the prototype instance method ');
+		}
+		instance1.method1(); //Defined directly in the instance method*/
+		//通过运行结果跟踪测试可以看出直接定义在实例上的变量的优先级要高于定义在“this”上的，而定义在“this”上的又高于 prototype定义的变量。即直接定义在实例上的变量会覆盖定义在“this”上和prototype定义的变量，定义在“this”上的会覆盖prototype定义的变量。
+	</script>
+	<p>3、内部方法</p>
+	<pre class="js">
+var BaseClass = function() {
+	var method1 = function() {
+		alert("Internal method");
+	};
+	var method2 = function() {
+		alert("call Internal method");
+		method1();
+	};
+	this.method3 = function() {
+		method2();
+	}
+};
+var instance1 = new BaseClass();
+//instance1.method1(); //会报错，因为method1是BaseClass中定义的内部变量，作用域只有在内部可见（闭包）
+instance1.method3(); //会先后调用method2和method1
+	</pre>
+	<script>
+		/*var BaseClass = function() {
+			var method1 = function() {
+				alert("Internal method");
+			};
+			var method2 = function() {
+				alert("call Internal method");
+				method1();
+			};
+			this.method3 = function() {
+				method2();
+			}
+		};
+		var instance1 = new BaseClass();
+		//instance1.method1(); //会报错，因为method1是BaseClass中定义的内部变量，作用域只有在内部可见（闭包）
+		instance1.method3(); //会先后调用method2和method1*/
+	</script>
+	<script>
+		$(function() {
+			$("pre.js").snippet("javascript",{style:"acid",clipboard:"swf/ZeroClipboard.swf",transparent:false});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>前端双花括号模板</title>
+</head>
+<body>
+	<hr>
+	<h1>测试0 直接写在LI里 </h1>
+	<ul id="box-0">
+		<li>姓名：{{name}}，年龄：{{age}}，数据：{{data}}</li>
+	</ul>
+
+	<hr>
+	<h1>测试1 写在 initialize 参数里</h1>
+	<ul id="box-1"></ul>
+
+	<hr>
+	<h1>测试2 写正特殊标签里 给程序使用</h1>
+	<ul id="box-2"></ul>
+	<script type="text/temp">
+		<li>姓名：{{name}}，年龄：{{age}}，数据：{{data}}</li>
+	</script>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="farTemplate.js"></script>
+<script>
+	$(function() {
+		$('#box-0').fartemplate({
+			jsonStr: { name: '张三', age: 23, data: {a:369, b:'#'} }
+		});
+
+		$('#box-1').fartemplate({
+			jsonStr: { name: '张三', age: 23 },
+			temp: '<li>姓名：{{name}}，年龄：{{age}}，数据：{{data}}</li>'
+		});
+
+		$('#box-2').fartemplate({
+			jsonStr: [
+				{ name: '张三', age: 23},
+				{ name: '张2三', age: 93 , data: {a:369, b:'#'}}]
+		});
+	});
+</script>
+</html>

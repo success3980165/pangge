@@ -1,0 +1,459 @@
+/*------------------ edward v1.1 for mobile 2015/06/17 ------------------*/
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+html {
+	line-height: 1;
+}
+html,body{
+	font:12px/1.5 arial, tahoma, Verdana, simsun;
+	height: 100%;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;  /* 表格边框独立时，行和单元格的边框在横向和纵向上的间距 */
+}
+caption, th, td {
+	  text-align: left;
+	  font-weight: normal;
+	  vertical-align: middle;
+}
+q, blockquote {
+	quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+	content: "";
+	content: none;
+}
+ol, ul {
+	list-style: none;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-family: Microsoft YaHei , simhei;
+}
+img,input {
+	vertical-align: middle; /* baseline/top/text-top/bottom */
+}
+a img {
+	border: none;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+	display: block;
+}
+i,em {
+	font-style: normal;
+}
+p {
+	color: #666;
+	word-wrap: break-word; /*它会自动把整个单词放到下一行*/
+}
+a,a:link {                      /* 未访问的链接 */
+	color: #333;
+	text-decoration: none;
+}
+a:visited {                   /* 已访问的链接 */
+
+}
+a:focus {                    /* 获得焦点 */
+	outline: 0 none;
+}
+a:active {
+	outline: none;
+}
+a:active, a:hover {            /* 选定的链接 鼠标移动到链接上 */
+	text-decoration: none;		/*underline*/
+	color: #ff1a17;
+}
+.hidden {
+	overflow: hidden;/*visibility: hidden;*/
+}
+.arial {
+	font-family: arial;
+}
+.tahoma {
+	font-family: tahoma;
+}
+.Verdana {
+	font-family: Verdana;
+}
+.yahei {
+	font-family: Microsoft YaHei , simhei;
+}
+.simsun {
+	font-family: simsun;
+}
+.simhei{
+	font-family: simhei;
+}
+.pointer{
+	cursor: pointer;
+}
+.relative {
+	position: relative;
+}
+.float-left {
+	float: left!important;
+}
+.float-right {
+	float: right!important;
+}
+.clearfix:after {
+	content: "\200B";
+	display: block;
+	height: 0;
+	clear: both;
+}
+.clearfix {
+	*zoom: 1;
+}
+.cf:before,.cf:after {
+	content: "";
+	display: table;
+}
+.cf:after {
+	clear: both;
+}
+.cf {
+	zoom: 1;
+}
+/*------------------ style ------------------*/
+body {
+	background:#000;
+	min-width: 1200px;
+	min-height: 600px;
+	-webkit-font-smoothing:antialiased;
+	font-family: "WenQuanYi Micro Hei",simsun,sans-serif;
+}
+.main {
+	width: 1200px;
+	height: 600px;
+	background: #000 url(../img/bg.jpg);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -600px;
+	margin-top: -300px;
+	overflow: hidden;
+}
+/*粽子盒子*/
+.c-zhongzi-box {
+	width: 312px;
+	height: 305px;
+	position: absolute;
+	left: 700px;
+	top: 184px;
+}
+.c-zhongzi-box-rock {
+	-webkit-animation: rock 2s infinite; /*infinite 无限次*/
+}
+/*粽子*/
+.c-zongzi {
+	width: 312px;
+	height: 305px;
+	background:url(../img/zz.png);
+	opacity: 1;
+	transition: all 1s;
+}
+.c-zongzi-out {
+	opacity: 0;
+	transform: scale(.5);
+}
+/*绳子*/
+.c-shengzi-0 {
+	display: none;
+}
+.c-shengzi-1 {
+	width: 218px;
+	height: 180px;
+	position: absolute;
+	background:url(../img/line_1.png);
+	left: 10px;
+	top: 120px;
+	z-index: 999;
+	cursor: pointer;
+}
+.c-shengzi-2 {
+	width: 219px;
+	height: 159px;
+	position: absolute;
+	background:url(../img/line_2.png);
+	left: 10px;
+	top: 158px;
+}
+.c-shengzi-3 {
+	width: 264px;
+	height: 117px;
+	position: absolute;
+	background:url(../img/line_3.png);
+	left: 10px;
+	top: 220px;
+}
+.c-shengzi-4 {
+	width: 288px;
+	height: 56px;
+	position: absolute;
+	background:url(../img/line_4.png);
+	left: 10px;
+	top: 290px;
+}
+/*粽子肉*/
+.c-zongzirou {
+	width: 288px;
+	height: 206px;
+	background:url(../img/zzr_1.png) no-repeat;
+	background-size:282px 206px;
+	position: absolute;
+	left: 50px;
+	top: 54px;
+	z-index: 110;
+	opacity: 0;
+	transition: all 1s;
+	transform: scale(.8);
+	transform-origin:center center;
+}
+.c-zongzirou-in {
+	opacity: 1;
+	transform: scale(1);
+}
+/*粽子肉的视角（旋转）*/
+.c-zongzirou-view-0 {
+	background:url(../img/zzr_1.png) no-repeat;
+	transform:rotateY(180deg);
+	transition: all 0s;
+}
+.c-zongzirou-view-1 {
+	background:url(../img/zzr_1.png) no-repeat;
+	transition: all 0s;
+}
+.c-zongzirou-view-2 {
+	background:url(../img/zzr_2.png) no-repeat;
+	transition: all 0s;
+}
+.c-zongzirou-view-3 {
+	background:url(../img/zzr_3.png) no-repeat;
+	transition: all 0s;
+}
+.c-zongzirou-view-4 {
+	background:url(../img/zzr_4.png) no-repeat;
+	transition: all 0s;
+}
+/*左叶*/
+.c-zuoye {
+	width: 114px;
+	height: 266px;
+	background:url(../img/leaf_left.png);
+	position: absolute;
+	left: 20px;
+	top: -50px;
+	z-index: 1;
+	opacity: 0;
+	transition: all 1s;
+	transform-origin:left bottom;
+}
+.c-zuoye-in{
+	opacity: 1;
+	transform:rotate(-5deg);
+}
+.c-zuoye-out{
+	opacity: 0;
+	transform:rotate(-15deg);
+}
+/*右叶*/
+.c-youye {
+	width: 318px;
+	height: 338px;
+	background:url(../img/leaf_right.png);
+	position: absolute;
+	left: 120px;
+	top: -50px;
+	z-index: 111;
+	opacity: 0;
+	transition: all 1s;
+	transform:scale(.8);
+	transform-origin:left bottom;
+}
+.c-youye-in{
+	opacity: 1;
+	transform:rotate(-5deg) scale(.8);
+}
+.c-youye-out{
+	opacity: 0;
+	transform:rotate(-15deg) scale(.8);
+}
+/*底叶*/
+.c-diye {
+	width: 618px;
+	height: 468px;
+	background:url(../img/leaf_expand.png);
+	position: absolute;
+	left: -150px;
+	top: -65px;
+	z-index: 99;
+	opacity: 0;
+	transition: all 1s;
+}
+.c-diye-in {
+	opacity: 1;
+}
+
+/*吉祥如意*/
+.c-t1 {
+	width: 180px;
+	height: 100px;
+	background:url(../img/t_jixiang.png);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -55px;
+	margin-top: -50px;
+	z-index: 200;
+	transform-origin:center center;
+	transform:scale(.8);
+	opacity: 0;
+	transition: all 1s;
+}
+.c-t2 {
+	width: 180px;
+	height: 100px;
+	background:url(../img/t_ruyi.png);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -50px;
+	margin-top: -50px;
+	z-index: 200;
+	transform-origin:center center;
+	transform:scale(.8);
+	opacity: 0;
+	transition: all 1s;
+}
+.c-t-in {
+	opacity: 1;
+}
+/*吉祥如意的视觉*/
+/* .c-t-view-1{
+	transform:scale(.8) rotateY(30deg) translate(-50px,0) rotate(8deg);
+}
+.c-t-view-2{
+	transform:scale(.7) rotateY(70deg) translate(-283px,-15px) rotate(-8deg);
+}
+.c-t-view-3{
+	transform:scale(.75) rotateY(49deg) translate(-94px,0) rotate(15deg);
+}
+.c-t-view-4{
+	transform:scale(.75) rotateY(47deg) translate(118px,0) rotate(-15deg);
+}
+.c-t-view-5{
+	transform:scale(.6) rotateY(50deg) translate(-196px,0) rotate(24deg);
+}
+.c-t-view-6{
+	transform:scale(.8) rotateY(30deg) translate(58px,0) rotate(-5deg);
+}
+.c-t-view-0{
+	z-index: 0;
+	display: none;
+} */
+.c-t-view-0{
+	transform:scale(.8);
+	transition: all 0s;
+}
+.c-t-miroor-0{
+	display: none;
+}
+.c-t-view-2{
+	transition: all 0s;
+	transform:scale(.8) rotateY(30deg) translate(-40px,0) rotate(8deg);
+}
+.c-t-miroor-2{
+	transition: all 0s;
+	transform:scale(.7) rotateY(70deg) translate(243px,12px) rotate(-8deg);
+}
+.c-t-view-3{
+	transition: all 0s;
+	transform:scale(.75) rotateY(49deg) translate(-94px,0) rotate(15deg);
+}
+.c-t-miroor-3{
+	transition: all 0s;
+	transform:scale(.62) rotateY(49deg) translate(98px,10px) rotate(-15deg);
+}
+.c-t-view-4{
+	transition: all 0s;
+	transform:scale(.55) rotateY(50deg) translate(-176px,10px) rotate(24deg);
+}
+.c-t-miroor-4{
+	transition: all 0s;
+	transform:scale(.7) rotateY(30deg) translate(38px,10px) rotate(-5deg);
+}
+/*祝福语文字*/
+.text{
+	position: absolute;
+	width: 400px;
+	height: 370px;
+	left: 180px;
+	top: 140px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #333;
+}
+.text .caption{
+	width: 400px;
+	height: 240px;
+	background:url(../img/caption.png) no-repeat;
+	margin-left: 40px;  /*初始化左移动动画*/
+	opacity: 0;
+	transition: all 1s 0s;
+}
+.text .caption-rock{
+	-webkit-animation: rock 4s infinite; /*infinite 无限次*/
+}
+.text .to{
+	width: 400px;
+	margin-top: 10px;
+	margin-left: 40px;  /*初始化左移动动画*/
+	opacity: 0;
+	transition: all 1s .5s;
+}
+.text .msg{
+	width: 400px;
+	margin-top: 10px;
+	margin-left: 40px;  /*初始化左移动动画*/
+	opacity: 0;
+	transition: all 1s 1s;
+}
+.text .from{
+	width: 400px;
+	margin-top: 10px;
+	margin-left: 40px;  /*初始化左移动动画*/
+	text-align: right;
+	opacity: 0;
+	transition: all 1s 1.5s;
+}
+.text-in {
+	/**/
+}
+.text-in .caption,.text-in .to,.text-in .msg,.text-in .from{
+	opacity: 1;
+	margin-left: 0px;  /*左移动动画*/
+}
+/*动画样式*/
+@-webkit-keyframes rock{
+	0%{transform: rotate(0deg)}
+	10%{transform: rotate(3deg)}
+	20%{transform: rotate(-3deg)}
+	30%{transform: rotate(2deg)}
+	40%{transform: rotate(-2deg)}
+	50%{transform: rotate(1deg)}
+	60%{transform: rotate(-1deg)}
+	70%{transform: rotate(0deg)}
+	100%{transform: rotate(0deg)}
+}

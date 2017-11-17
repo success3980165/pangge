@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<style>
+		.aa{
+			width:100px;
+			height:100px;
+			background-color:#36c;
+		}
+		.aa:before{
+			content:"台词：";
+			background-color:#000;
+		}
+		.bb{
+			width:100px;
+			height:100px;
+			background-color:#36c;
+		}
+		.bb:before{
+			content:"台词：";
+			background-color:#000;
+		}
+		.vv:before{
+			content:"11111";
+			background-color:#fff;
+		}
+		#test:before {
+			content: 'Before ';
+			color: #FF0;
+		}
+	</style>
+</head>
+<body>
+	<div class="aa">111</div>
+	<div class="bb">111</div>
+	<div id="test"></div>
+	<script>
+		$(function() {
+			var style = "background-color:#fff;";
+			//插入head标签 写入样式
+			//要想传值  就要用第一种方法。写入变量拼串。
+			$('head').append('<style>.aa:before{'+style+'}</style>');
+
+			//继承写法
+			//如果是固定值，请使用这种方法。
+			$('.bb').addClass("vv");
+		});
+	</script>
+	<script>
+		var test = document.querySelector('#test');
+
+		//getComputedStyle方法接受一个DOM节点对象作为参数，返回一个包含该节点最终样式信息的对象。所谓“最终样式信息”，指的是各种CSS规则叠加后的结果。
+		var result = window.getComputedStyle(test, ':before').content;
+		var color = window.getComputedStyle(test, ':before').color;
+		console.log(result,color);
+	</script>
+</body>
+</html>

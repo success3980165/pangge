@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>JS修改@keyframes</title>
+<head>
+    <style>
+    div.a {
+        animation: myfirst 1s;
+        -webkit-animation: myfirst 1s;
+    }
+    </style>
+    <style id="dynamic">
+    @-webkit-keyframes myfirst {
+        50% {
+            background: green;
+        }
+    }
+
+    @keyframes myfirst {
+        50% {
+            background: green;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div id="a" class="">123</div>
+    <script>
+    var colors = ['red', 'yellow', 'blue', 'green'];
+    window.setTimeout(function() {
+        var color = colors.shift();  //shift方法用于删除数组的第一个元素，并返回该元素。
+        console.log('删除数组的第一个值' + color);
+        if (!color) {
+            return;
+        }
+        var styleDom = document.getElementById("dynamic");
+        styleDom.innerHTML = '@-webkit-keyframes myfirst{50% {background: ' + color + ';} }\n' + '@keyframes myfirst {50% {background: ' + color + ';}}'
+        var a = document.getElementById('a');
+        a.className = 'a';
+
+        window.setTimeout(function() {
+            a.className = ''
+        }, 1000);
+
+        window.setTimeout(arguments.callee, 1500);
+    }, 1000)
+    </script>
+</body>
+
+</html>

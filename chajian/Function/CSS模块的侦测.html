@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS模块的侦测</title>
+</head>
+<body>
+	<h2>检测background-clip是CSS3样式</h2>
+	<script>
+		function isPropertySupported(property){
+
+			if (property in document.body.style){
+				return true;
+			}
+
+			var prefixes = ['Moz', 'Webkit', 'O', 'ms', 'Khtml'];
+			var prefProperty = property.charAt(0).toUpperCase() + property.substr(1);
+
+			for(var i=0; i<prefixes.length; i++){
+				if((prefixes[i] + prefProperty) in document.body.style){
+					return true;
+				}
+			}
+
+			return false;
+		}
+		console.log(isPropertySupported('background-clip'));// true
+
+
+	</script>
+</body>
+</html>

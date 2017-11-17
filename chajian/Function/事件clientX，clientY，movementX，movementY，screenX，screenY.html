@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>clientX，clientY，movementX，movementY，screenX，screenY</title>
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<style>
+		#div{
+			width:500px;
+			height:500px;
+			background:#694114;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<p>screenX，设置鼠标相对于屏幕的水平坐标（但不会移动鼠标），默认为0，等同于MouseEvent.screenX属性。</p>
+	<p>screenY，设置鼠标相对于屏幕的垂直坐标，默认为0，等同于MouseEvent.screenY属性。</p>
+	<br>
+	<p>clientX，设置鼠标相对于窗口的水平坐标，默认为0，等同于MouseEvent.clientX属性。</p>
+	<p>clientY，设置鼠标相对于窗口的垂直坐标，默认为0，等同于MouseEvent.clientY属性。</p>
+	<br>
+	<p>ctrlKey，设置是否按下ctrl键，默认为false，等同于MouseEvent.ctrlKey属性。</p>
+	<p>shiftKey，设置是否按下shift键，默认为false，等同于MouseEvent.shiftKey属性。</p>
+	<p>altKey，设置是否按下alt键，默认为false，等同于MouseEvent.altKey属性。</p>
+	<p>metaKey，设置是否按下meta键，默认为false，等同于MouseEvent.metaKey属性。</p>
+	<br>
+	<p>button，设置按下了哪一个鼠标按键，默认为0。-1表示没有按键，0表示按下主键（通常是左键），1表示按下辅助键（通常是中间的键），2表示按下次要键（通常是右键）。</p>
+	<p>buttons，设置按下了鼠标哪些键，是一个3个比特位的二进制值，默认为0。1表示按下主键（通常是左键），2表示按下次要键（通常是右键），4表示按下辅助键（通常是中间的键）。</p>
+	<br>
+	<p>relatedTarget，设置一个Element节点，在mouseenter和mouseover事件时，表示鼠标刚刚离开的那个Element节点，在mouseout和mouseleave事件时，表示鼠标正在进入的那个Element节点。默认为null，等同于MouseEvent.relatedTarget属性。</p>
+	<div id="div" onmousedown="showCoords(event);">点我</div>
+	<script>
+		function showCoords(evt){
+			console.log("clientX value: " + evt.clientX + "\n" +"clientY value: " + evt.clientY + "\n");
+			console.log("movementX value: " + evt.movementX + "\n" +"movementY value: " + evt.movementY + "\n");
+			console.log("screenX value: " + evt.screenX + "\n"+ "screenY value: " + evt.screenY + "\n");
+		}
+		/*
+			clientX 属性返回鼠标位置相对于浏览器窗口左上角的水平坐标，单位为像素，与页面是否横向滚动无关。
+			clientY 属性返回鼠标位置相对于浏览器窗口左上角的垂直坐标，单位为像素，与页面是否纵向滚动无关。
+
+			movementX 属性返回一个水平位移，单位为像素，表示当前位置与上一个mousemove事件之间的水平距离。在数值上，等于currentEvent.movementX = currentEvent.screenX - previousEvent.screenX。
+			movementY 属性返回一个垂直位移，单位为像素，表示当前位置与上一个mousemove事件之间的垂直距离。在数值上，等于currentEvent.movementY = currentEvent.screenY - previousEvent.screenY。
+
+			screenX 属性返回鼠标位置相对于屏幕左上角的水平坐标，单位为像素。
+			screenY 属性返回鼠标位置相对于屏幕左上角的垂直坐标，单位为像素。
+		*/
+	</script>
+</body>
+</html>

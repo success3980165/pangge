@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+	<meta name="apple-touch-fullscreen" content="YES" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<script type="text/javascript" src="js/js.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body>
+	<!-- 外层画布 -->
+	<div id="canvas"></div>
+	<script>
+		//所有的数据
+		var list = [{
+			height: 950,
+			width: 800,
+			img: "imgs/1.jpg"
+		},
+		{
+			height: 1187,
+			width: 900,
+			img: "imgs/2.jpg"
+		},
+		{
+			height: 766,
+			width: 980,
+			img: "imgs/3.jpg"
+		},
+		{
+			height: 754,
+			width: 980,
+			img: "imgs/4.jpg"
+		},
+		{
+			height: 493,
+			img: "imgs/5.jpg",
+			width: 750
+		},
+		{
+			height: 500,
+			img: "imgs/6.jpg",
+			width: 750
+		},
+		{
+			height: 600,
+			img: "imgs/7.jpg",
+			width: 400
+		}];
+
+		//初始化Slider 实例
+		new Slider({
+			dom : document.getElementById('canvas'),
+			list : list
+		});
+	</script>
+</body>

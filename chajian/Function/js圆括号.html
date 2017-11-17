@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*
+		圆括号（parentheses）在JavaScript中有两种作用，
+		一种表示函数的调用，
+		另一种表示表达式的组合（grouping）。
+		*/
+		console.log("abc");	// 圆括号表示函数的调用
+		(1+2) * 3 	// 圆括号表示表达式的组合
+
+
+
+		/*
+		把对象放在圆括号之中，则会返回对象的值，即对象本身。
+		*/
+		var o = {p:1};
+		console.log(1+2);	//3
+		console.log(o);		//Object {p: 1}
+
+
+
+		/*
+		将函数放在圆括号中，会返回函数本身。如果圆括号紧跟在函数的后面，就表示调用函数，即对函数求值。
+		*/
+		(function aaa(){
+			alert(1);
+		})();
+
+		alert(function aaa(){alert(1)});
+
+
+		/*
+
+		*/
+		var a ={};
+		console.log(a.toString());  //[object Object]
+	</script>
+</body>
+</html>

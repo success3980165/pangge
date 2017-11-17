@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的拷贝</title>
+</head>
+<body>
+	<pre>
+		var o1 = {};
+		o1.name = 'xiayuting';
+		var o4 = o1;
+		o4.age = 10;
+		console.log(o1,o4);
+		//其实o1和o2 都指向的是{}。
+	</pre>
+	<script>
+		var o1 = {};
+		var o2 = new Object();
+		var o3 = Object.create(null);
+		// 对象的生成方法，通常有三种方法。
+		// 除了像上面那样直接使用大括号生成（{}），还可以用new命令生成一个Object对象的实例，或者使用Object.create方法生成。
+
+		o1.name = 'xiayuting';
+		var o4 = o1;
+		o4.age = 10;
+		console.log(o1,o4);
+	</script>
+	<h2>对象的拷贝</h2>
+	<ol>
+		<li>确保拷贝后的对象，与原对象具有同样的prototype原型对象。</li>
+		<li>确保拷贝后的对象，与原对象具有同样的属性。</li>
+	</ol>
+	<script>
+		var extend_1 = function(to, from) {
+			for (var property in from) {
+				to[property] = from[property];
+			}
+
+			return to;
+		}
+		console.log(extend_1({}, {a: 1}));
+		//上面这个方法的问题在于，如果遇到存取器定义的属性，会只拷贝值。
+		console.log(extend_1({}, { get wang(){ return 1 } }));
+		// {a: 1}
+
+
+		var extend_2 = function(to, from) {
+			for (var property in from) {
+				//Object.defineProperty 方法接受三个参数，第一个是属性所在的对象，第二个是属性名（它应该是一个字符串），第三个是属性的描述对象。比如，新建一个o对象，并定义它的p属性，写法如下。
+				//每个属性都有一个对应的attributes对象，保存该属性的一些元信息。使用 Object.getOwnPropertyDescriptor 方法，可以读取attributes对象。
+				Object.defineProperty(to, property, Object.getOwnPropertyDescriptor(from, property));
+			}
+
+			return to;
+		}
+		console.log(extend_2({}, { get a(){ return 1 } }));
+		//这段代码还是有问题，拷贝某些属性时会失效。
+
+
+		/**
+		 * [extend 克隆对象]
+		 * @param  {[type]} to   [新]
+		 * @param  {[type]} from [源]
+		 * @return {[type]}      [第一个参数]
+		 */
+		var extend = function(to, from) {
+			for (var property in from) {
+				var descriptor = Object.getOwnPropertyDescriptor(from, property);
+
+				if (descriptor && (!descriptor.writable || !descriptor.configurable || !descriptor.enumerable || descriptor.get || descriptor.set)) {
+					Object.defineProperty(to, property, descriptor);
+				} else {
+					to[property] = from[property];
+				}
+			}
+
+			return to;
+		}
+		var edward = {type:true};
+		extend(edward, { get a(){ return 1 } , age:20 ,name:'edward'});
+		console.log(edward);
+		extend(document.body.style, {
+			backgroundColor: "#369"
+		});
+	</script>
+	<script>
+		function copyObject(orig) {
+			var copy = Object.create(Object.getPrototypeOf(orig));
+			copyOwnPropertiesFrom(copy, orig);
+			return copy;
+		}
+
+		function copyOwnPropertiesFrom(target, source) {
+			Object
+				.getOwnPropertyNames(source)
+				.forEach(function(propKey) {
+					var desc = Object.getOwnPropertyDescriptor(source, propKey);
+					Object.defineProperty(target, propKey, desc);
+				});
+			return target;
+		}
+
+		var obj = copyObject(edward);
+		console.log(obj === edward);
+	</script>
+</body>
+</html>

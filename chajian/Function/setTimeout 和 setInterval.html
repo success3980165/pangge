@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>可以给 setTimeout 和 setInterval 传递参数</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/jquery-migrate-1.1.0.min.js"></script>
+    <script src="js/jquery.snippet.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.snippet.css" />
+    <style>
+    body {
+        color: #fff;
+        background: url(css/i/bg.gif) repeat 0 0 #333;
+        padding: 25px 180px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:16px;
+        font-weight:bold;
+    }
+    </style>
+</head>
+
+<body>
+    <p>可以给 setTimeout 和 setInterval 传递参数</p>
+    <pre class="js">
+$(function() {
+    //假设你想给 setTimeout 中调用的函数传递两个参数，你可能会觉得这是唯一的方法：
+    var callback = function(a, b ,c) {
+        console.log(a + b + c); // 'foobar'
+    }
+
+    window.setTimeout(function() {
+        callback('xia', 'yu', 'ting');
+    }, 1000);
+
+
+    //实际上，你还可以用下面的方法实现同样的功能：
+    //注：该方法不支持IE（包括IE9）。
+    var
+    foo = 10,
+    bar = 20;
+    window.setTimeout(callback, 1000, foo, bar, 0.1);
+});
+    </pre>
+</body>
+<script>
+    $(function() {
+        //假设你想给 setTimeout 中调用的函数传递两个参数，你可能会觉得这是唯一的方法：
+        var callback = function(a, b ,c) {
+            console.log(a + b + c); // 'foobar'
+        }
+
+        window.setTimeout(function() {
+            callback('xia', 'yu', 'ting');
+        }, 1000);
+
+
+        //实际上，你还可以用下面的方法实现同样的功能：
+        //注：该方法不支持IE（包括IE9）。
+        var
+        foo = 10,
+        bar = 20;
+        window.setTimeout(callback, 1000, foo, bar, 0.1);
+    });
+</script>
+<script>
+    $(function() {
+        $("pre.js").snippet("javascript",{style:"acid",clipboard:"swf/ZeroClipboard.swf",transparent:false});
+    });
+</script>
+</html>

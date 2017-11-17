@@ -1,0 +1,73 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@charset "utf-8";
+@import "style";
+@import "variables";
+@import "mixin";
+
+/* @extend start */
+%elevatorPng {
+	background-image: url(i/elevator.png);
+}
+
+/* @extend end */
+.toolbar{
+	position:fixed;
+	left:50%;
+	bottom:5px;
+	margin-left: -$toolbar-size / 2;
+}
+.toolbar-item{
+	position: relative;
+	display: block;
+	width: $toolbar-size;
+	height: $toolbar-size;
+	@extend %elevatorPng;
+	background-repeat: no-repeat;
+	margin-top: 1px;
+	@include transition(background-position .5s);
+
+	&:hover {
+		.toolbar-layer{
+			@include opacity(1);
+			@include scale(1);
+		}
+	}
+}
+.toolbar-weixin{
+	@include toolbar-item(-798px,-860px);
+
+	.toolbar-layer{
+		height: 212px;
+		background-position: 0 0;
+	}
+
+}
+.toolbar-feedback{
+	@include toolbar-item(-426px,-488px);
+}
+.toolbar-app{
+	@include toolbar-item(-550px,-612px);
+
+	.toolbar-layer{
+		height: 194px;
+		background-position: 0 -222px;
+	}
+}
+.toolbar-top{
+	@include toolbar-item(-674px,-736px);
+}
+.toolbar-layer{
+	position: absolute;
+	right: $toolbar-size - 6;
+	bottom:-10px;
+	width: 172px;
+	@extend %elevatorPng;
+	@include opacity(0);
+	@include transform-origin(95% 95%);
+	@include scale(0.01);
+	@include transition(all .5s);
+}
